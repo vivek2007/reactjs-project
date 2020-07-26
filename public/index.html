@@ -1,174 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Better traffic,for less than half the cost."
-    /><style>
-      /* Preloader */
-      .ctn-preloader {
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        cursor: default;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        height: 100%;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        z-index: 9000;
-        transition: opacity 0.2s linear;
-      }
-      .loader--hide {
-        opacity: 0;
-      }
-      .loader--hide .ctn-preloader {
-        z-index: -9999;
-        visibility: hidden;
-      }
+<html lang="en" data-kit-theme="default">
 
-      .ctn-preloader .animation-preloader {
-        z-index: 1000;
-      }
+<head>
+  <meta charset="utf-8" />
+  <title>Clean UI Pro React | React Admin Template</title>
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link href="https://fonts.googleapis.com/css?family=Mukta:400,700,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/resources/fonts/font-icomoon/style.css">
+  <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/resources/fonts/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/resources/fonts/font-linearicons/style.css">
+  <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/resources/fonts/font-feathericons/dist/feather.css">
+  <style>
+    .initial__loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDFweCIgIGhlaWdodD0iNDFweCIgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIiBjbGFzcz0ibGRzLXJvbGxpbmciPiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiBmaWxsPSJub25lIiBuZy1hdHRyLXN0cm9rZT0ie3tjb25maWcuY29sb3J9fSIgbmctYXR0ci1zdHJva2Utd2lkdGg9Int7Y29uZmlnLndpZHRofX0iIG5nLWF0dHItcj0ie3tjb25maWcucmFkaXVzfX0iIG5nLWF0dHItc3Ryb2tlLWRhc2hhcnJheT0ie3tjb25maWcuZGFzaGFycmF5fX0iIHN0cm9rZT0iIzAxOTBmZSIgc3Ryb2tlLXdpZHRoPSIxMCIgcj0iMzUiIHN0cm9rZS1kYXNoYXJyYXk9IjE2NC45MzM2MTQzMTM0NjQxNSA1Ni45Nzc4NzE0Mzc4MjEzOCIgdHJhbnNmb3JtPSJyb3RhdGUoODQgNTAgNTApIj4gICAgICA8YW5pbWF0ZVRyYW5zZm9ybSBhdHRyaWJ1dGVOYW1lPSJ0cmFuc2Zvcm0iIHR5cGU9InJvdGF0ZSIgY2FsY01vZGU9ImxpbmVhciIgdmFsdWVzPSIwIDUwIDUwOzM2MCA1MCA1MCIga2V5VGltZXM9IjA7MSIgZHVyPSIxcyIgYmVnaW49IjBzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSI+PC9hbmltYXRlVHJhbnNmb3JtPiAgICA8L2NpcmNsZT4gIDwvc3ZnPg==);
+      background-color: transparent;
+    }
+  </style>
+</head>
 
-      .ctn-preloader .animation-preloader .spinner {
-        -webkit-animation: spinner 1s infinite linear;
-        animation: spinner 1s infinite linear;
-        border-radius: 50%;
-        border: 3px solid rgba(0, 0, 0, 0.2);
-        border-top-color: #000000;
-        height: 9em;
-        margin: 0 auto 3.5em auto;
-        width: 9em;
-      }
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <div class="initial__loading"></div>
+  </div>
+</body>
 
-      .ctn-preloader .animation-preloader .txt-loading {
-        font: bold 5em "Poppins", sans-serif;
-        text-align: center;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      .ctn-preloader .animation-preloader .txt-loading .letters-loading {
-        color: rgba(0, 0, 0, 0.2);
-        position: relative;
-      }
-
-      .ctn-preloader .animation-preloader .txt-loading .letters-loading:before {
-        -webkit-animation: letters-loading 4s infinite;
-        animation: letters-loading 4s infinite;
-        color: #000000;
-        content: attr(data-text-preloader);
-        left: 0;
-        opacity: 0;
-        font-family: "Poppins", sans-serif;
-        position: absolute;
-        top: -3px;
-        -webkit-transform: rotateY(-90deg);
-        transform: rotateY(-90deg);
-      }
-
-      .ctn-preloader
-        .animation-preloader
-        .txt-loading
-        .letters-loading:nth-child(2):before {
-        -webkit-animation-delay: 0.2s;
-        animation-delay: 0.2s;
-      }
-
-      .ctn-preloader
-        .animation-preloader
-        .txt-loading
-        .letters-loading:nth-child(3):before {
-        -webkit-animation-delay: 0.4s;
-        animation-delay: 0.4s;
-      }
-
-      .ctn-preloader
-        .animation-preloader
-        .txt-loading
-        .letters-loading:nth-child(4):before {
-        -webkit-animation-delay: 0.6s;
-        animation-delay: 0.6s;
-      }
-
-      .ctn-preloader
-        .animation-preloader
-        .txt-loading
-        .letters-loading:nth-child(5):before {
-        -webkit-animation-delay: 0.8s;
-        animation-delay: 0.8s;
-      }
-
-      .ctn-preloader
-        .animation-preloader
-        .txt-loading
-        .letters-loading:nth-child(6):before {
-        -webkit-animation-delay: 1s;
-        animation-delay: 1s;
-      }
-
-      .ctn-preloader
-        .animation-preloader
-        .txt-loading
-        .letters-loading:nth-child(7):before {
-        -webkit-animation-delay: 1.2s;
-        animation-delay: 1.2s;
-      }
-
-      .ctn-preloader
-        .animation-preloader
-        .txt-loading
-        .letters-loading:nth-child(8):before {
-        -webkit-animation-delay: 1.4s;
-        animation-delay: 1.4s;
-      }
-
-      .ctn-preloader.dark .animation-preloader .spinner {
-        border-color: rgba(255, 255, 255, 0.2);
-        border-top-color: #fff;
-      }
-
-      .ctn-preloader.dark .animation-preloader .txt-loading .letters-loading {
-        color: rgba(255, 255, 255, 0.2);
-      }
-
-      .ctn-preloader.dark
-        .animation-preloader
-        .txt-loading
-        .letters-loading:before {
-        color: #fff;
-      }
-
-      .ctn-preloader p {
-        font-size: 14px;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 8px;
-        color: #3b3b3b;
-        display: block;
-        text-align: center;
-      }
-    </style>
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-   
-    <title>Clicks</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-
-  </body>
 </html>

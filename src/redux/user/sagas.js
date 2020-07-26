@@ -1,10 +1,17 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects'
 import { notification } from 'antd'
 import { history } from 'index'
-import { login, currentAccount, logout } from 'services/firebase.auth.service'
+import { currentAccount, logout } from 'services/firebase.auth.service'
+import { login } from 'services/login.auth.service'
 import actions from './actions'
 
 export function* LOGIN({ payload }) {
+  yield put({
+    type: 'user/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
   const { email, password } = payload
   yield put({
     type: 'user/SET_STATE',
@@ -12,15 +19,44 @@ export function* LOGIN({ payload }) {
       loading: true,
     },
   })
-  const success = yield call(login, email, password)
-  yield put({
-    type: 'user/LOAD_CURRENT_ACCOUNT',
-  })
-  if (success) {
-    yield history.push('/')
+  // const response = {
+  //   email,
+  //   username: 'venkat',
+  //   status: 1,
+  //   message: 'Success'
+  // } 
+  const response = yield call(login, email, password)
+  console.log('success: ', response);
+  if (response.status && -1 > 0) {
+    const { username: name, email: userEmail } = response
+    yield put({
+      type: 'user/SET_STATE',
+      payload: {
+        // id,
+        loading: false,
+        name,
+        email: userEmail,
+        // avatar,
+        role: 'admin',
+        authorized: true,
+      },
+    })
     notification.success({
       message: 'Logged In',
       description: 'You have successfully logged in to Clicks Admin Template!',
+    })
+    yield history.push('/dashboard/beta')
+  } else {
+    yield put({
+      type: 'user/SET_STATE',
+      payload: {
+        loading: false,
+        authorized: false
+      },
+    })
+    notification.error({
+      message: "Login Failed",
+      description: response.message,
     })
   }
 }
