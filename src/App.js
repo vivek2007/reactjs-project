@@ -15,6 +15,10 @@ import ForgotPassword from "./Pages/ForgotPassword"
 import ChangePassword from "./Pages/ChangePassword"
 import Order from "./Pages/Order";
 import NotFound from "./Pages/404";
+import DashboardAlpha from "./Pages/dashboard/alpha"
+import DashboardBeta from "./Pages/dashboard/beta"
+import DashboardGamma from "./Pages/dashboard/gamma"
+import DashboardCrypto from "./Pages/dashboard/crypto"
 
 const App = () => {
 
@@ -43,6 +47,19 @@ const App = () => {
             <ScrollToTopRoute>
               <PrivateRoute path="/order" component={Order} />
             </ScrollToTopRoute>
+            <ScrollToTopRoute>
+              <PrivateRoute path="/dashboard" component={DashboardAlpha}  />
+            </ScrollToTopRoute>
+            <ScrollToTopRoute>
+              <PrivateRoute path="/dashboard/beta" component={DashboardBeta} />
+            </ScrollToTopRoute>
+            <ScrollToTopRoute>
+              <PrivateRoute path="/dashboard/gamma" component={DashboardGamma} />
+            </ScrollToTopRoute>
+            <ScrollToTopRoute>
+              <PrivateRoute path="/dashboard/crypto" component={DashboardCrypto} />
+            </ScrollToTopRoute>
+
             <ScrollToTopRoute component={NotFound} />
           </Switch>
         </Router>

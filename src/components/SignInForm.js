@@ -64,7 +64,7 @@ const SignInFrom =()=>{
 
       if (isLoggedIn) {
            localStorage.setItem("username", email);
-            return  <Redirect to="/order" /> ;
+            return  <Redirect to="/dashboard/alpha" /> ;
         } 
           
 

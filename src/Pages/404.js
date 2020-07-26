@@ -9,7 +9,7 @@ const NotFound = () => (
       <div className="container flex">
         <div className="error_content_two text-center">
           <img src={require("../img/new/error.png")} alt="" />
-          <h2>Error. We can’t ftind the page you’re looking for.</h2>
+          <h2>Error. We can’t find the page you’re looking for.</h2>
           <p>
             Sorry for the inconvenience. Go to our homepage or check out our
             latest collections for Fashion, Chair, Decoration...{" "}
