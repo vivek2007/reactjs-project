@@ -3,307 +3,307 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
-
 import Layout from 'layouts'
+
 
 const routes = [
   // Dashboards
   {
     path: '/dashboard/alpha',
-    Component: lazy(() => import('../src/pages/dashboard/alpha')),
+    Component: lazy(() => import('./pages/dashboard/alpha/index')),
     exact: true,
   },
   {
     path: '/dashboard/beta',
-    Component: lazy(() => import('../src/pages/dashboard/beta')),
+    Component: lazy(() => import('./pages/dashboard/beta/index')),
     exact: true,
   },
   {
     path: '/dashboard/gamma',
-    Component: lazy(() => import('../src/pages/dashboard/gamma')),
+    Component: lazy(() => import('./pages/dashboard/gamma')),
     exact: true,
   },
   {
     path: '/dashboard/crypto',
-    Component: lazy(() => import('../src/pages/dashboard/crypto')),
+    Component: lazy(() => import('./pages/dashboard/crypto')),
     exact: true,
   },
 
   // Ecommerce
   {
     path: '/ecommerce/dashboard',
-    Component: lazy(() => import('../src/pages/ecommerce/dashboard')),
+    Component: lazy(() => import('./pages/ecommerce/dashboard')),
     exact: true,
   },
   {
     path: '/ecommerce/orders',
-    Component: lazy(() => import('../src/pages/ecommerce/orders')),
+    Component: lazy(() => import('./pages/ecommerce/orders')),
     exact: true,
   },
   {
     path: '/ecommerce/product-catalog',
-    Component: lazy(() => import('../src/pages/ecommerce/product-catalog')),
+    Component: lazy(() => import('./pages/ecommerce/product-catalog')),
     exact: true,
   },
   {
     path: '/ecommerce/product-details',
-    Component: lazy(() => import('../src/pages/ecommerce/product-details')),
+    Component: lazy(() => import('./pages/ecommerce/product-details')),
     exact: true,
   },
   {
     path: '/ecommerce/cart',
-    Component: lazy(() => import('../src/pages/ecommerce/cart')),
+    Component: lazy(() => import('./pages/ecommerce/cart')),
     exact: true,
   },
 
   // Apps
   {
     path: '/apps/messaging',
-    Component: lazy(() => import('../src/pages/apps/messaging')),
+    Component: lazy(() => import('./pages/apps/messaging')),
     exact: true,
   },
   {
     path: '/apps/calendar',
-    Component: lazy(() => import('../src/pages/apps/calendar')),
+    Component: lazy(() => import('./pages/apps/calendar')),
     exact: true,
   },
   {
     path: '/apps/mail',
-    Component: lazy(() => import('../src/pages/apps/mail')),
+    Component: lazy(() => import('./pages/apps/mail')),
     exact: true,
   },
   {
     path: '/apps/profile',
-    Component: lazy(() => import('../src/pages/apps/profile')),
+    Component: lazy(() => import('./pages/apps/profile')),
     exact: true,
   },
   {
     path: '/apps/gallery',
-    Component: lazy(() => import('../src/pages/apps/gallery')),
+    Component: lazy(() => import('./pages/apps/gallery')),
     exact: true,
   },
   // Extra Apps
   {
     path: '/apps/github-explore',
-    Component: lazy(() => import('../src/pages/apps/github-explore')),
+    Component: lazy(() => import('./pages/apps/github-explore')),
     exact: true,
   },
   {
     path: '/apps/github-discuss',
-    Component: lazy(() => import('../src/pages/apps/github-discuss')),
+    Component: lazy(() => import('./pages/apps/github-discuss')),
     exact: true,
   },
   {
     path: '/apps/digitalocean-droplets',
-    Component: lazy(() => import('../src/pages/apps/digitalocean-droplets')),
+    Component: lazy(() => import('./pages/apps/digitalocean-droplets')),
     exact: true,
   },
   {
     path: '/apps/digitalocean-create',
-    Component: lazy(() => import('../src/pages/apps/digitalocean-create')),
+    Component: lazy(() => import('./pages/apps/digitalocean-create')),
     exact: true,
   },
   {
     path: '/apps/google-analytics',
-    Component: lazy(() => import('../src/pages/apps/google-analytics')),
+    Component: lazy(() => import('./pages/apps/google-analytics')),
     exact: true,
   },
   {
     path: '/apps/wordpress-post',
-    Component: lazy(() => import('../src/pages/apps/wordpress-post')),
+    Component: lazy(() => import('./pages/apps/wordpress-post')),
     exact: true,
   },
   {
     path: '/apps/wordpress-posts',
-    Component: lazy(() => import('../src/pages/apps/wordpress-posts')),
+    Component: lazy(() => import('./pages/apps/wordpress-posts')),
     exact: true,
   },
   {
     path: '/apps/wordpress-add',
-    Component: lazy(() => import('../src/pages/apps/wordpress-add')),
+    Component: lazy(() => import('./pages/apps/wordpress-add')),
     exact: true,
   },
   {
     path: '/apps/todoist-list',
-    Component: lazy(() => import('../src/pages/apps/todoist-list')),
+    Component: lazy(() => import('./pages/apps/todoist-list')),
     exact: true,
   },
   {
     path: '/apps/jira-dashboard',
-    Component: lazy(() => import('../src/pages/apps/jira-dashboard')),
+    Component: lazy(() => import('./pages/apps/jira-dashboard')),
     exact: true,
   },
   {
     path: '/apps/jira-agile-board',
-    Component: lazy(() => import('../src/pages/apps/jira-agile-board')),
+    Component: lazy(() => import('./pages/apps/jira-agile-board')),
     exact: true,
   },
   {
     path: '/apps/helpdesk-dashboard',
-    Component: lazy(() => import('../src/pages/apps/helpdesk-dashboard')),
+    Component: lazy(() => import('./pages/apps/helpdesk-dashboard')),
     exact: true,
   },
   // Widgets
   {
     path: '/widgets/general',
-    Component: lazy(() => import('../src/pages/widgets/general')),
+    Component: lazy(() => import('./pages/widgets/general')),
     exact: true,
   },
   {
     path: '/widgets/lists',
-    Component: lazy(() => import('../src/pages/widgets/lists')),
+    Component: lazy(() => import('./pages/widgets/lists')),
     exact: true,
   },
   {
     path: '/widgets/tables',
-    Component: lazy(() => import('../src/pages/widgets/tables')),
+    Component: lazy(() => import('./pages/widgets/tables')),
     exact: true,
   },
   {
     path: '/widgets/charts',
-    Component: lazy(() => import('../src/pages/widgets/charts')),
+    Component: lazy(() => import('./pages/widgets/charts')),
     exact: true,
   },
   // Cards
   {
     path: '/cards/basic-cards',
-    Component: lazy(() => import('../src/pages/cards/basic-cards')),
+    Component: lazy(() => import('./pages/cards/basic-cards')),
     exact: true,
   },
   {
     path: '/cards/tabbed-cards',
-    Component: lazy(() => import('../src/pages/cards/tabbed-cards')),
+    Component: lazy(() => import('./pages/cards/tabbed-cards')),
     exact: true,
   },
   // UI Kits
   {
     path: '/ui-kits/bootstrap',
-    Component: lazy(() => import('../src/pages/ui-kits/bootstrap')),
+    Component: lazy(() => import('./pages/ui-kits/bootstrap')),
     exact: true,
   },
   {
     path: '/ui-kits/antd',
-    Component: lazy(() => import('../src/pages/ui-kits/antd')),
+    Component: lazy(() => import('./pages/ui-kits/antd')),
     exact: true,
   },
   // Tables
   {
     path: '/tables/bootstrap',
-    Component: lazy(() => import('../src/pages/tables/bootstrap')),
+    Component: lazy(() => import('./pages/tables/bootstrap')),
     exact: true,
   },
   {
     path: '/tables/antd',
-    Component: lazy(() => import('../src/pages/tables/antd')),
+    Component: lazy(() => import('./pages/tables/antd')),
     exact: true,
   },
   // Charts
   {
     path: '/charts/chartistjs',
-    Component: lazy(() => import('../src/pages/charts/chartistjs')),
+    Component: lazy(() => import('./pages/charts/chartistjs')),
     exact: true,
   },
   {
     path: '/charts/chartjs',
-    Component: lazy(() => import('../src/pages/charts/chartjs')),
+    Component: lazy(() => import('./pages/charts/chartjs')),
     exact: true,
   },
   {
     path: '/charts/c3',
-    Component: lazy(() => import('../src/pages/charts/c3')),
+    Component: lazy(() => import('./pages/charts/c3')),
     exact: true,
   },
   // Icons
   {
     path: '/icons/feather-icons',
-    Component: lazy(() => import('../src/pages/icons/feather-icons')),
+    Component: lazy(() => import('./pages/icons/feather-icons')),
     exact: true,
   },
   {
     path: '/icons/fontawesome',
-    Component: lazy(() => import('../src/pages/icons/fontawesome')),
+    Component: lazy(() => import('./pages/icons/fontawesome')),
     exact: true,
   },
   {
     path: '/icons/linearicons-free',
-    Component: lazy(() => import('../src/pages/icons/linearicons-free')),
+    Component: lazy(() => import('./pages/icons/linearicons-free')),
     exact: true,
   },
   {
     path: '/icons/icomoon-free',
-    Component: lazy(() => import('../src/pages/icons/icomoon-free')),
+    Component: lazy(() => import('./pages/icons/icomoon-free')),
     exact: true,
   },
   // Advanced
   {
     path: '/advanced/form-examples',
-    Component: lazy(() => import('../src/pages/advanced/form-examples')),
+    Component: lazy(() => import('./pages/advanced/form-examples')),
     exact: true,
   },
   {
     path: '/advanced/email-templates',
-    Component: lazy(() => import('../src/pages/advanced/email-templates')),
+    Component: lazy(() => import('./pages/advanced/email-templates')),
     exact: true,
   },
   {
     path: '/advanced/utilities',
-    Component: lazy(() => import('../src/pages/advanced/utilities')),
+    Component: lazy(() => import('./pages/advanced/utilities')),
     exact: true,
   },
   {
     path: '/advanced/grid',
-    Component: lazy(() => import('../src/pages/advanced/grid')),
+    Component: lazy(() => import('./pages/advanced/grid')),
     exact: true,
   },
   {
     path: '/advanced/typography',
-    Component: lazy(() => import('../src/pages/advanced/typography')),
+    Component: lazy(() => import('./pages/advanced/typography')),
     exact: true,
   },
   {
     path: '/advanced/pricing-tables',
-    Component: lazy(() => import('../src/pages/advanced/pricing-tables')),
+    Component: lazy(() => import('./pages/advanced/pricing-tables')),
     exact: true,
   },
   {
     path: '/advanced/invoice',
-    Component: lazy(() => import('../src/pages/advanced/invoice')),
+    Component: lazy(() => import('./pages/advanced/invoice')),
     exact: true,
   },
   {
     path: '/advanced/colors',
-    Component: lazy(() => import('../src/pages/advanced/colors')),
+    Component: lazy(() => import('./pages/advanced/colors/index')),
     exact: true,
   },
   // Auth Pages
   {
     path: '/auth/login',
-    Component: lazy(() => import('../src/pages/auth/login')),
+    Component: lazy(() => import('./pages/auth/login')),
     exact: true,
   },
   {
     path: '/auth/forgot-password',
-    Component: lazy(() => import('../src/pages/auth/forgot-password')),
+    Component: lazy(() => import('./pages/auth/forgot-password')),
     exact: true,
   },
   {
     path: '/auth/register',
-    Component: lazy(() => import('../src/pages/auth/register')),
+    Component: lazy(() => import('./pages/auth/register')),
     exact: true,
   },
   {
     path: '/auth/lockscreen',
-    Component: lazy(() => import('../src/pages/auth/lockscreen')),
+    Component: lazy(() => import('./pages/auth/lockscreen')),
     exact: true,
   },
   {
     path: '/auth/404',
-    Component: lazy(() => import('../src/pages/auth/404')),
+    Component: lazy(() => import('./pages/auth/404')),
     exact: true,
   },
   {
     path: '/auth/500',
-    Component: lazy(() => import('../src/pages/auth/500')),
+    Component: lazy(() => import('./pages/auth/500')),
     exact: true,
   },
 ]

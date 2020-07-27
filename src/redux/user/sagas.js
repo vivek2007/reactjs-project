@@ -27,7 +27,7 @@ export function* LOGIN({ payload }) {
   // } 
   const response = yield call(login, email, password)
   console.log('success: ', response);
-  if (response.status && -1 > 0) {
+  if (response.status) {
     const { username: name, email: userEmail } = response
     yield put({
       type: 'user/SET_STATE',
