@@ -9,8 +9,8 @@ import SystemLogin from './pages/auth/login'
 import SystemForgotPassword from './pages/auth/forgot-password'
 import SystemRegister from './pages/auth/register'
 import SystemLockscreen from './pages/auth/lockscreen'
-import System404 from './pages/auth/404'
-import System500 from './pages/auth/500'
+import System404 from './pages/auth/404/index'
+import System500 from './pages/auth/500/index'
 
 // const routes = [
 //   //Dashboards
