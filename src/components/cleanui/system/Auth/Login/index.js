@@ -41,7 +41,7 @@ const Login = ({ dispatch, user, logo }) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           className="mb-4"
-          initialValues={{ email: 'admin@mediatec.org', password: 'cleanui' }}
+          // initialValues={{ email: 'admin@mediatec.org', password: 'cleanui' }}
         >
           <Form.Item
             name="email"
