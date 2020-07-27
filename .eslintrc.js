@@ -11,7 +11,10 @@ module.exports = {
         "extensions": [
           ".js",
           ".jsx"
-        ]
+        ],
+		"settings": {
+			"import/resolver": "webpack"
+		}
       }
     ],
     "no-useless-escape": "off",
