@@ -1,45 +1,9 @@
 module.exports = {
-  "parserOptions": {
-    "ecmaFeatures": {
-      "legacyDecorators": true
-    }
-  },
-  settings: {
-    'react': {
-      version: 'detect',
-    },
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.json'],
-      },
-    },
-    'import/ignore': ['.coffee$', '.(scss|less|css)$', '.svg$'],
-  },
-  globals: {
-    window: true,
-    document: true,
-    process: true,
-    __DEV__: true,
-    __SERVER__: true,
-  },
-  extends: [
+  "extends": [
     "react-app",
     "airbnb",
     "prettier"
   ],
-  parserOptions: {
-    sourceType: 'module',
-    jsx: true,
-    useJSXTextNode: true,
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
-  env: {
-    es6: true,
-    browser: true,
-    node: true,
-  },
   "rules": {
     "react/jsx-filename-extension": [
       1,
@@ -49,16 +13,6 @@ module.exports = {
           ".jsx"
         ]
       }
-    ],
-	'import/extensions': [
-      'error',
-      'always',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
     ],
     "no-useless-escape": "off",
     "no-script-url": "off",
@@ -85,4 +39,4 @@ module.exports = {
       "legacyDecorators": true
     }
   }
-};
+}
