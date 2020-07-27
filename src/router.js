@@ -235,46 +235,6 @@ const routes = [
     exact: true,
   },
   // Advanced
-  {
-    path: '/advanced/form-examples',
-    Component: lazy(() => import('pages/advanced/form-examples')),
-    exact: true,
-  },
-  {
-    path: '/advanced/email-templates',
-    Component: lazy(() => import('pages/advanced/email-templates')),
-    exact: true,
-  },
-  {
-    path: '/advanced/utilities',
-    Component: lazy(() => import('pages/advanced/utilities')),
-    exact: true,
-  },
-  {
-    path: '/advanced/grid',
-    Component: lazy(() => import('pages/advanced/grid')),
-    exact: true,
-  },
-  {
-    path: '/advanced/typography',
-    Component: lazy(() => import('pages/advanced/typography')),
-    exact: true,
-  },
-  {
-    path: '/advanced/pricing-tables',
-    Component: lazy(() => import('pages/advanced/pricing-tables')),
-    exact: true,
-  },
-  {
-    path: '/advanced/invoice',
-    Component: lazy(() => import('pages/advanced/invoice')),
-    exact: true,
-  },
-  {
-    path: '/advanced/colors',
-    Component: lazy(() => import('pages/advanced/colors')),
-    exact: true,
-  },
   // Auth Pages
   {
     path: '/auth/login',
