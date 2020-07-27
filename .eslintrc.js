@@ -12,9 +12,6 @@ module.exports = {
           ".js",
           ".jsx"
         ],
-		"settings": {
-			"import/resolver": "webpack"
-		}
       }
     ],
     "no-useless-escape": "off",
@@ -35,6 +32,7 @@ module.exports = {
     "import/no-unresolved": 0,
     "no-console": 0,
     "react/no-multi-comp": 0,
+    "import/extensions": 0
     // "no-unused-vars": 0
   },
   "parserOptions": {
