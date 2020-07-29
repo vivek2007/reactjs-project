@@ -2,7 +2,7 @@ import { all, takeEvery, put, call } from 'redux-saga/effects'
 import { notification } from 'antd'
 import { history } from 'index'
 import { currentAccount, logout } from 'services/firebase.auth.service'
-import { login } from 'services/login.auth.service'
+import { login, register } from 'services/login.auth.service'
 import actions from './actions'
 
 export function* LOGIN({ payload }) {
@@ -13,30 +13,16 @@ export function* LOGIN({ payload }) {
     },
   })
   const { email, password } = payload
-  yield put({
-    type: 'user/SET_STATE',
-    payload: {
-      loading: true,
-    },
-  })
-  // const response = {
-  //   email,
-  //   username: 'venkat',
-  //   status: 1,
-  //   message: 'Success'
-  // } 
   const response = yield call(login, email, password)
-  console.log('success: ', response);
+  console.log('success: ', response)
   if (response.status) {
     const { username: name, email: userEmail } = response
     yield put({
       type: 'user/SET_STATE',
       payload: {
-        // id,
         loading: false,
         name,
         email: userEmail,
-        // avatar,
         role: 'admin',
         authorized: true,
       },
@@ -51,11 +37,56 @@ export function* LOGIN({ payload }) {
       type: 'user/SET_STATE',
       payload: {
         loading: false,
-        authorized: false
+        authorized: false,
       },
     })
     notification.error({
-      message: "Login Failed",
+      message: 'Login Failed',
+      description: response.message,
+    })
+  }
+}
+
+export function* REGISTER({ payload }) {
+  yield put({
+    type: 'user/SET_STATE',
+    payload: {
+      loading: true,
+    },
+  })
+  const { firstName = '', lastName = '', emailAddress: email, password, referredByCode } = payload
+  const dataToRegister = {
+    firstName,
+    lastName,
+    email,
+    password,
+    username: email,
+    referredByCode,
+  }
+  const response = yield call(register, dataToRegister)
+  console.log('success: ', response)
+  if (response.status) {
+    yield put({
+      type: 'user/SET_STATE',
+      payload: {
+        loading: false,
+      },
+    })
+    notification.success({
+      message: 'Registration Success',
+      description: response.message,
+    })
+    yield history.push('/auth/login')
+  } else {
+    yield put({
+      type: 'user/SET_STATE',
+      payload: {
+        loading: false,
+        authorized: false,
+      },
+    })
+    notification.error({
+      message: 'Registration Failed',
       description: response.message,
     })
   }
@@ -110,6 +141,7 @@ export function* LOGOUT() {
 export default function* rootSaga() {
   yield all([
     takeEvery(actions.LOGIN, LOGIN),
+    takeEvery(actions.REGISTER, REGISTER),
     takeEvery(actions.LOAD_CURRENT_ACCOUNT, LOAD_CURRENT_ACCOUNT),
     takeEvery(actions.LOGOUT, LOGOUT),
     LOAD_CURRENT_ACCOUNT(), // run once on app load to check user auth
