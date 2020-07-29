@@ -7,7 +7,6 @@ import style from '../style.module.scss'
 const mapStateToProps = ({ user, settings, dispatch }) => ({
   dispatch,
   user,
-  authProvider: settings.authProvider,
   logo: settings.logo,
 })
 
@@ -29,7 +28,6 @@ const Login = ({ dispatch, user, logo }) => {
         <h1 className="mb-5 px-3">
           <strong>Welcome to {logo}</strong>
         </h1>
-        
       </div>
       <div className={`card ${style.container}`}>
         <div className="text-dark font-size-24 mb-3">
