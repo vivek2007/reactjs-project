@@ -282,8 +282,28 @@ const routes = [
     exact: true,
   },
   {
+    path: '/auth/verify',
+    Component: lazy(() => import('Pages/auth/verify-email')),
+    exact: true,
+  },
+  {
+    path: '/auth/verify/:id',
+    Component: lazy(() => import('Pages/auth/verify-email')),
+    exact: true,
+  },
+  {
     path: '/auth/forgot-password',
     Component: lazy(() => import('Pages/auth/forgot-password')),
+    exact: true,
+  },
+  {
+    path: '/auth/change-password',
+    Component: lazy(() => import('Pages/auth/change-password')),
+    exact: true,
+  },
+  {
+    path: '/auth/change-password/:id',
+    Component: lazy(() => import('Pages/auth/change-password')),
     exact: true,
   },
   {

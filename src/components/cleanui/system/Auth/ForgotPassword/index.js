@@ -1,11 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Input, Button, Form } from 'antd'
 import { Link } from 'react-router-dom'
 import style from '../style.module.scss'
 
-const ForgotPassword = () => {
+const mapStateToProps = ({ user, dispatch }) => ({
+  dispatch,
+  user,
+})
+
+const ForgotPassword = ({ dispatch, user }) => {
   const onFinish = values => {
     console.log('Success:', values)
+    dispatch({
+      type: 'user/FORGOT_PASSWORD',
+      payload: values,
+    })
   }
 
   const onFinishFailed = errorInfo => {
@@ -26,12 +36,19 @@ const ForgotPassword = () => {
           className="mb-4"
         >
           <Form.Item
+            label="Email"
             name="email"
             rules={[{ required: true, message: 'Please input your e-mail address' }]}
           >
-            <Input size="large" placeholder="Email Address" />
+            <Input size="large" placeholder="Enter Email Address" />
           </Form.Item>
-          <Button type="primary" htmlType="submit" size="large" className="text-center w-100">
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            className="text-center w-100"
+            loading={user.loading}
+          >
             <strong>Reset my password</strong>
           </Button>
         </Form>
@@ -44,4 +61,4 @@ const ForgotPassword = () => {
   )
 }
 
-export default ForgotPassword
+export default connect(mapStateToProps)(ForgotPassword)
