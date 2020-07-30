@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { DownOutlined } from '@ant-design/icons'
-import { Slider, Calendar, Badge, Table, Dropdown, Button, Menu, Progress } from 'antd'
+import { Slider, Calendar, Badge, Table, Dropdown, Button, Menu } from 'antd'
 import ChartistGraph from 'react-chartist'
 import { Helmet } from 'react-helmet'
 import General19 from 'components/kit/widgets/General/19'
-import General23 from 'components/kit/widgets/General/23'
-import General23v1 from 'components/kit/widgets/General/23v1'
 import General24 from 'components/kit/widgets/General/24'
 import General24v1 from 'components/kit/widgets/General/24v1'
 import General14 from 'components/kit/widgets/General/14'
@@ -23,7 +21,6 @@ import {
   monthCartistData,
   taskTableData,
   tableData,
-  progressGroup,
 } from './data.json'
 
 // Slider Range Settings //
@@ -176,7 +173,6 @@ const DashboardBeta = () => {
               <div className="cui__utils__heading mb-0">
                 <strong>Account Information</strong>
               </div>
-              <div className="text-muted">Block with important Account information</div>
             </div>
             <div className="card-body">
               <General19 />
@@ -185,70 +181,18 @@ const DashboardBeta = () => {
           <div className="card">
             <div className="card-header">
               <div className="cui__utils__heading mb-0">
-                <strong>Work Progress</strong>
+                <strong>Referals & Earnings</strong>
               </div>
-              <div className="text-muted">Block with important Work Progress information</div>
             </div>
             <div className="card-body">
-              <div>
-                <strong>{progressGroup.first.name}</strong>
-                <p className="text-muted mb-1">{progressGroup.first.description}</p>
-                <div className="mb-3">
-                  <Progress
-                    percent={progressGroup.first.progress}
-                    status={progressGroup.first.status}
-                  />
-                </div>
-                <strong>{progressGroup.second.name}</strong>
-                <p className="text-muted mb-1">{progressGroup.second.description}</p>
-                <div className="mb-3">
-                  <Progress
-                    percent={progressGroup.second.progress}
-                    status={progressGroup.second.status}
-                  />
-                </div>
-                <strong>{progressGroup.third.name}</strong>
-                <p className="text-muted mb-1">{progressGroup.third.description}</p>
-                <div className="mb-3">
-                  <Progress
-                    percent={progressGroup.third.progress}
-                    status={progressGroup.third.status}
-                  />
-                </div>
-                <strong>{progressGroup.fourth.name}</strong>
-                <p className="text-muted mb-1">{progressGroup.fourth.description}</p>
-                <div className="mb-3">
-                  <Progress
-                    percent={progressGroup.fourth.progress}
-                    status={progressGroup.fourth.status}
-                  />
-                </div>
-                <strong>{progressGroup.fives.name}</strong>
-                <p className="text-muted mb-1">{progressGroup.fives.description}</p>
-                <div className="mb-3">
-                  <Progress percent={progressGroup.fives.progress} />
+              <div className="card bg-primary border-0 mb-4">
+                <div className="card-body">
+                  <General24 />
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-header">
-              <div className="cui__utils__heading mb-0">
-                <strong>Employees</strong>
-              </div>
-              <div className="text-muted">Block with Employees important information</div>
-            </div>
-            <div className="card-body">
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="card bg-light border-0 mb-0">
-                    <General23 />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="card border-0 mb-0">
-                    <General23v1 />
-                  </div>
+              <div className="card bg-light border-0 mb-0">
+                <div className="card-body">
+                  <General24v1 />
                 </div>
               </div>
             </div>
@@ -271,26 +215,6 @@ const DashboardBeta = () => {
                       pagination={false}
                     />
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-header">
-              <div className="cui__utils__heading mb-0">
-                <strong>Information Cards</strong>
-              </div>
-              <div className="text-muted">Block with important Information Cards information</div>
-            </div>
-            <div className="card-body">
-              <div className="card bg-primary border-0 mb-4">
-                <div className="card-body">
-                  <General24 />
-                </div>
-              </div>
-              <div className="card bg-light border-0 mb-0">
-                <div className="card-body">
-                  <General24v1 />
                 </div>
               </div>
             </div>

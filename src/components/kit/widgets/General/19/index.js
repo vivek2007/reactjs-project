@@ -6,10 +6,6 @@ const General19 = () => {
     <div>
       <div className="rounded overflow-hidden position-relative">
         <img className="img-fluid" src="resources/images/content/photos/6.jpeg" alt="Lion" />
-        <div className={`${style.headerText} font-weight-bold text-white`}>
-          Clean. Simple. <br />
-          Responsive
-        </div>
       </div>
       <div className="d-flex flex-column flex-sm-row">
         <div className={`${style.user} text-center pl-4 pr-5 flex-shrink-0`}>

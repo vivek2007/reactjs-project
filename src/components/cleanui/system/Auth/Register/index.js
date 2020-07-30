@@ -24,7 +24,7 @@ const Register = ({ dispatch, user }) => {
 
   return (
     <div>
-      <div className={`card ${style.container}`}>
+      <div className={`card ${style.container} p-4`}>
         <div className="text-dark font-size-24 mb-4">
           <strong>Create your account</strong>
         </div>
@@ -40,43 +40,103 @@ const Register = ({ dispatch, user }) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           className="mb-4"
+          initialValues={{ email: '', username: '' }}
         >
-          <Form.Item
-            name="firstName"
-            rules={[{ required: true, message: 'Please input your first name' }]}
-          >
-            <Input size="large" placeholder="First Name" autoComplete="false" />
-          </Form.Item>
-          <Form.Item
-            name="lastName"
-            rules={[{ required: true, message: 'Please input your last name' }]}
-          >
-            <Input size="large" placeholder="Last Name" autoComplete="off" />
-          </Form.Item>
-          <Form.Item
-            name="emailAddress"
-            rules={[
-              { required: true, message: 'Please input your e-mail address' },
-              {
-                type: 'email',
-                message: 'Please enter valid email address',
-              },
-            ]}
-          >
-            <Input size="large" placeholder="Email Address" autoComplete="off" />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              { required: true, message: 'Please input your e-mail address' },
-              { min: 8, message: 'Password length must be atleast 8 characters' },
-            ]}
-          >
-            <Input type="password" size="large" placeholder="Password" />
-          </Form.Item>
-          <Form.Item name="referredByCode">
-            <Input size="large" placeholder="Enter Referral Code" />
-          </Form.Item>
+          <div className="row">
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <Form.Item
+                label="First Name"
+                name="firstName"
+                rules={[{ required: true, message: 'Please input your first name' }]}
+              >
+                <Input size="large" placeholder="Enter First Name" autoComplete="off" />
+              </Form.Item>
+            </div>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <Form.Item
+                label="Last Name"
+                name="lastName"
+                rules={[{ required: true, message: 'Please input your last name' }]}
+              >
+                <Input size="large" placeholder="Enter Last Name" autoComplete="off" />
+              </Form.Item>
+            </div>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <Form.Item
+                label="Username"
+                name="username"
+                rules={[
+                  { required: true, message: 'Please input your e-mail address' },
+                  {
+                    min: 6,
+                    message: 'Username length must be atleast 6 characters',
+                  },
+                ]}
+              >
+                <Input size="large" placeholder="Enter Username" autoComplete="new-password" />
+              </Form.Item>
+            </div>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <Form.Item
+                label="Email"
+                name="emailAddress"
+                rules={[
+                  { required: true, message: 'Please input your e-mail address' },
+                  {
+                    type: 'email',
+                    message: 'Please enter valid email address',
+                  },
+                ]}
+              >
+                <Input size="large" placeholder="Email Address" autoComplete="new-password" />
+              </Form.Item>
+            </div>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  { required: true, message: 'Please input your e-mail address' },
+                  { min: 8, message: 'Password length must be atleast 8 characters' },
+                ]}
+                hasFeedback
+              >
+                <Input type="password" size="large" placeholder="Password" />
+              </Form.Item>
+            </div>
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <Form.Item
+                label="Confirm Password"
+                name="confirmPassword"
+                dependencies={['password']}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please confirm your password!',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve()
+                      }
+                      return Promise.reject(
+                        new Error('The two passwords that you entered do not match!'),
+                      )
+                    },
+                  }),
+                ]}
+              >
+                <Input type="password" size="large" placeholder="Password" />
+              </Form.Item>
+            </div>
+            <div className="col-xs-12 col-md-12">
+              <Form.Item name="referredByCode">
+                <Input size="large" placeholder="Enter Referral Code" />
+              </Form.Item>
+            </div>
+          </div>
+
           <Button
             type="primary"
             htmlType="submit"
