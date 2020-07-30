@@ -44,7 +44,7 @@ const AuthLayout = ({
           }}
         >
           <div
-            className={classNames(`${style.topbar}`, {
+            className={classNames(`${style.topbar} mb-4`, {
               [style.topbarGray]: isGrayTopbar,
             })}
           >
@@ -62,13 +62,9 @@ const AuthLayout = ({
               </Link>
             </div>
           </div>
-          <div className={style.containerInner}>{children}</div>
+          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">{children}</div>
           <div className="mt-auto pb-5 pt-5">
-            
-            <div className="text-center">
-              Copyright © 2020 Clicks
-				  
-            </div>
+            <div className="text-center">Copyright © 2020 Clicks</div>
           </div>
         </div>
       </Layout.Content>

@@ -54,13 +54,20 @@ export function* REGISTER({ payload }) {
       loading: true,
     },
   })
-  const { firstName = '', lastName = '', emailAddress: email, password, referredByCode } = payload
+  const {
+    firstName = '',
+    lastName = '',
+    emailAddress: email,
+    username,
+    password,
+    referredByCode,
+  } = payload
   const dataToRegister = {
     firstName,
     lastName,
     email,
     password,
-    username: email,
+    username,
     referredByCode,
   }
   const response = yield call(register, dataToRegister)
