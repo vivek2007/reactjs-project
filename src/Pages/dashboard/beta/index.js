@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { DownOutlined } from '@ant-design/icons'
 import { Slider, Calendar, Badge, Table, Dropdown, Button, Menu } from 'antd'
 import ChartistGraph from 'react-chartist'
@@ -82,7 +83,11 @@ const monthChartistOptions = {
   seriesBarDistance: 10,
 }
 
-const DashboardBeta = () => {
+const mapStateToProps = ({ user }) => ({
+  user,
+})
+
+const DashboardBeta = ({ user }) => {
   const [taskTableSelectedRowKeys, setTaskTableSelectedRowKeys] = useState([])
 
   const onSelectChange = keys => {
@@ -187,7 +192,7 @@ const DashboardBeta = () => {
             <div className="card-body">
               <div className="card bg-primary border-0 mb-4">
                 <div className="card-body">
-                  <General24 />
+                  <General24 successReferals={user.successReferrals} />
                 </div>
               </div>
               <div className="card bg-light border-0 mb-0">
@@ -373,4 +378,4 @@ const DashboardBeta = () => {
   )
 }
 
-export default DashboardBeta
+export default connect(mapStateToProps)(DashboardBeta)
