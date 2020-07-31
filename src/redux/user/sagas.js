@@ -27,15 +27,23 @@ export function* LOGIN({ payload }) {
   const response = yield call(login, email, password)
   console.log('success: ', response)
   if (response.status) {
-    const { username: name, email: userEmail } = response
+    const {
+      user: { username, email: userEmail, referralCode, firstName },
+      successReferrals,
+      referredBy,
+    } = response
     yield put({
       type: 'user/SET_STATE',
       payload: {
         loading: false,
-        name,
+        name: firstName,
+        username,
         email: userEmail,
         role: 'admin',
         authorized: true,
+        successReferrals,
+        referredBy,
+        referralCode,
       },
     })
     notification.success({
