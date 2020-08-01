@@ -26,10 +26,9 @@ export default async function getMenuData() {
           key: 'dashboardGamma',
           url: '/dashboard/gamma',
         },
-        
       ],
     },
- 
+
     {
       title: 'Compensation Plan',
       key: 'apps',
@@ -39,6 +38,11 @@ export default async function getMenuData() {
           title: 'Referrals and Earnings',
           key: 'appsProfile',
           url: '/apps/profile',
+        },
+        {
+          title: 'Buy Clicks',
+          key: 'orderForm',
+          url: '/order/order-form',
         },
       ],
     },
@@ -62,7 +66,6 @@ export default async function getMenuData() {
           key: 'extraAppsDigitaloceanDroplets',
           url: '/apps/digitalocean-droplets',
         },
-        
       ],
     },
     {
@@ -82,6 +85,5 @@ export default async function getMenuData() {
         },
       ],
     },
-
   ]
 }

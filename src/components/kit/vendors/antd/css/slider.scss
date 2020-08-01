@@ -3,6 +3,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // DARK THEME STYLES
+.my-slider .ant-slider-dot {
+  display: none !important;
+}
 [data-kit-theme='dark'] {
   .ant-slider {
     &-rail {
