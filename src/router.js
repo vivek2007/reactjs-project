@@ -326,6 +326,12 @@ const routes = [
     Component: lazy(() => import('Pages/auth/500')),
     exact: true,
   },
+  // Order Pages
+  {
+    path: '/order/order-form',
+    Component: lazy(() => import('Pages/order/order-form')),
+    exact: true,
+  },
 ]
 
 const mapStateToProps = ({ settings }) => ({

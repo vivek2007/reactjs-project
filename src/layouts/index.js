@@ -31,6 +31,7 @@ const Layout = ({ user, children, location: { pathname, search } }) => {
 
   // Layout Rendering
   const getLayout = () => {
+    console.log('pathname: ', pathname)
     if (pathname === '/') {
       return 'public'
     }

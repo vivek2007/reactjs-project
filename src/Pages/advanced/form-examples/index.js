@@ -54,6 +54,7 @@ const AdvancedFormExamples = () => {
     80: '80',
     90: '90',
     100: '100',
+    1000: '1000',
   }
 
   const residences = [
