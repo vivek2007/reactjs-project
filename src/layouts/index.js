@@ -14,7 +14,10 @@ const Layouts = {
   main: MainLayout,
 }
 
-const mapStateToProps = ({ user }) => ({ user })
+const mapStateToProps = ({ user }) => {
+  console.log('userData: ', user)
+  return { user }
+}
 let previousPath = ''
 
 const Layout = ({ user, children, location: { pathname, search } }) => {
@@ -45,7 +48,7 @@ const Layout = ({ user, children, location: { pathname, search } }) => {
   const DEMO_AUTH = process.env.REACT_APP_AUTHENTICATED === 'true'
 
   const Container = Layouts[getLayout()]
-  const isUserAuthorized = DEMO_AUTH || user.authorized
+  const isUserAuthorized = DEMO_AUTH || true
   const isUserLoading = user.loading
   const isAuthLayout = getLayout() === 'auth'
 

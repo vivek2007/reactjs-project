@@ -354,7 +354,7 @@ const Router = ({ history, routerAnimation }) => {
                   timeout={routerAnimation === 'none' ? 0 : 300}
                 >
                   <Switch location={location}>
-                    <Route exact path="/" render={() => <Redirect to="/dashboard/alpha" />} />
+                    <Route exact path="/" render={() => <Redirect to="/dashboard/beta" />} />
                     {routes.map(({ path, Component, exact }) => (
                       <Route
                         path={path}

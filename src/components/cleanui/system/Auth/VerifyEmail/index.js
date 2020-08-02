@@ -24,7 +24,7 @@ const VerifyEmail = ({ dispatch, user, match = {} }) => {
       })
     }
   }
-  useEffect(() => verifyEmailByToken(), [])
+  useEffect(() => verifyEmailByToken(), []) // eslint-disable-line
   return (
     <div>
       <div className={`card ${style.container}`}>
