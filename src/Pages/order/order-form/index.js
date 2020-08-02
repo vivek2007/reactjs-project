@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import moment from 'moment'
 import { Helmet } from 'react-helmet'
-import { Input, Slider, Form, DatePicker, InputNumber, Button } from 'antd'
+import { Input, Slider, Form, DatePicker, InputNumber, Button, Tooltip, notification } from 'antd'
 // import { css } from 'styled-components';
 import { usePaymentInputs, PaymentInputsWrapper } from 'react-payment-inputs'
 import images from 'react-payment-inputs/images'
@@ -11,8 +11,72 @@ function disabledDate(current) {
   return current < moment().subtract(1, 'day')
 }
 
-const AdvancedFormExamples = () => {
-  // const [cardInfo, setCardInfo] = useState({});
+const OrderForm = () => {
+  const onFinish = values => {
+    console.log('Success:', values)
+    let totalClicks = 0
+    webSites.forEach(website => {
+      totalClicks = +values[website.clicksRequired]
+    })
+    if (totalClicks !== amountToPay) {
+      notification.error({
+        message: 'Clicks not Validated',
+        description: 'Number Clicks should equal to Splitting Clicks',
+        placement: 'topLeft',
+        duration: 5,
+      })
+    } else {
+      notification.error({
+        message: 'Form Success',
+        description: 'Placing your Order...',
+        placement: 'topLeft',
+        duration: 10,
+      })
+    }
+    // dispatch({
+    //   type: 'user/REGISTER',
+    //   payload: values,
+    // })
+  }
+
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo)
+    console.log('formValues: ', formValues)
+    setFormValues({})
+  }
+  const [webSites, setWebSites] = useState([
+    {
+      name: 'websiteURL_0',
+      clicksRequired: 'clicksRequired_0',
+      nextLength: 1,
+    },
+  ])
+
+  const [amountToPay, setAmountToPay] = useState(100)
+
+  const [formValues, setFormValues] = useState({
+    totalClicks: 100,
+    launchDate: new Date(),
+    websites: [],
+  })
+
+  const addOrRemoveWebSites = (addWebsite, index) => {
+    const freshListOfWebSites = [...webSites]
+    if (addWebsite) {
+      const nextLength = webSites[webSites.length - 1].nextLength + 1
+      freshListOfWebSites.push({
+        name: `websiteURL_${nextLength}`,
+        clicksRequired: `clicksRequired_${nextLength}`,
+        nextLength,
+      })
+    } else {
+      freshListOfWebSites.splice(index, 1)
+    }
+    // freshListOfWebSites.forEach((website, objectIndex) => {
+    //   website.name = `websiteURL_${objectIndex}`;
+    // })
+    setWebSites(freshListOfWebSites)
+  }
 
   const {
     getCardNumberProps,
@@ -68,23 +132,73 @@ const AdvancedFormExamples = () => {
           <h5 className="mb-4">
             <strong>Buy Clicks</strong>
           </h5>
-          <Form {...formItemLayout} labelAlign="left">
-            <Form.Item name="amount" label="Number of Clicks">
-              <Slider marks={marks} max={5000} min={100} step={null} dots />
+          <Form
+            {...formItemLayout}
+            labelAlign="left"
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+          >
+            <Form.Item name="numberOfClicks" label="Number of Clicks">
+              <Slider
+                marks={marks}
+                max={5000}
+                min={100}
+                step={null}
+                onAfterChange={e => setAmountToPay(e)}
+              />
             </Form.Item>
-            <Form.Item
-              name="websiteURL"
-              label="Website"
-              rules={[
-                { required: true, message: 'Please input Website URL' },
-                {
-                  type: 'url',
-                  message: 'Please enter valid Webssite',
-                },
-              ]}
-            >
-              <Input placeholder="Enter Website" />
-            </Form.Item>
+            {webSites.map((website, index) => (
+              <Form.Item
+                label={webSites.length === 1 ? 'Website' : 'Website and Clicks'}
+                style={{ marginBottom: 0 }}
+              >
+                <Form.Item
+                  style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+                  name={website.name}
+                  rules={[
+                    { required: true, message: 'Please input Website URL' },
+                    {
+                      type: 'url',
+                      message: 'Please enter valid Webssite',
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder="Enter Website"
+                    addonBefore={
+                      index !== 0 && (
+                        <div onClick={() => addOrRemoveWebSites(false, index)} aria-hidden="true">
+                          <Tooltip title="Remove Website">
+                            <li>
+                              <i className="fe fe-minus-circle" />
+                            </li>
+                          </Tooltip>
+                        </div>
+                      )
+                    }
+                    addonAfter={
+                      <div onClick={() => addOrRemoveWebSites(true)} aria-hidden="true">
+                        <Tooltip title="Add One More Website">
+                          <li>
+                            <i className="fe fe-plus-circle" />
+                          </li>
+                        </Tooltip>
+                      </div>
+                    }
+                  />
+                </Form.Item>
+                <Form.Item
+                  style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
+                  name={website.clicksRequired}
+                  rules={[{ required: true, message: 'Please input number of Clicks' }]}
+                >
+                  <InputNumber
+                    formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                  />
+                </Form.Item>
+              </Form.Item>
+            ))}
             <Form.Item
               name="requiredDate"
               label="Select Date"
@@ -92,41 +206,50 @@ const AdvancedFormExamples = () => {
             >
               <DatePicker className="mb-2" disabledDate={disabledDate} />
             </Form.Item>
-            <Form.Item
-              name="websiteURL"
-              label="Website"
-              rules={[
-                { required: true, message: 'Please input Website URL' },
-                {
-                  type: 'url',
-                  message: 'Please enter valid Webssite',
-                },
-              ]}
-            >
-              <Input placeholder="Enter Website" />
+            <Form.Item label="Payment Details" name="paymentDetails">
+              <Form.Item
+                style={{ display: 'inline-block', width: 'calc(45% - 8px)' }}
+                rules={[{ required: true, message: 'Please input card number' }]}
+                name="paymentDetails_cardNumber"
+              >
+                <PaymentInputsWrapper {...wrapperProps}>
+                  <svg {...getCardImageProps({ images })} />
+                  <input {...getCardNumberProps()} name="creditCardNumber" />
+                </PaymentInputsWrapper>
+              </Form.Item>
+              <Form.Item
+                style={{ display: 'inline-block', width: 'calc(25% - 8px)' }}
+                rules={[{ required: true, message: 'Please input expiry' }]}
+                name="paymentDetails_cardCVV"
+              >
+                <PaymentInputsWrapper {...wrapperProps}>
+                  <input {...getExpiryDateProps()} name="creditCardExpiry" />
+                </PaymentInputsWrapper>
+              </Form.Item>
+              <Form.Item
+                style={{ display: 'inline-block', width: 'calc(25% - 8px)' }}
+                rules={[{ required: true, message: 'Please input CVC' }]}
+                name="paymentDetails_cardExpiry"
+              >
+                <PaymentInputsWrapper {...wrapperProps}>
+                  <input {...getCVCProps()} name="creditCardCVC" />
+                </PaymentInputsWrapper>
+              </Form.Item>
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Payment Details"
               rules={[{ required: true, message: 'Please input Amount' }]}
+              name="paymentDetails"
             >
               <PaymentInputsWrapper {...wrapperProps}>
                 <svg {...getCardImageProps({ images })} />
-                <input {...getCardNumberProps()} />
-                <input {...getExpiryDateProps()} />
-                <input {...getCVCProps()} />
+                <input {...getCardNumberProps()} name="creditCardNumber" />
+                <input {...getExpiryDateProps()} name="creditCardExpiry" />
+                <input {...getCVCProps()} name="creditCardCVC" />
               </PaymentInputsWrapper>
-            </Form.Item>
-            <Form.Item
-              name="amount"
-              label="Amount"
-              rules={[{ required: true, message: 'Please input Amount URL' }]}
-            >
-              <InputNumber
-                defaultValue={1000}
-                formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                readOnly
-              />
+            </Form.Item> */}
+            <Form.Item name="amount" label="Amount">
+              {`$ ${amountToPay}`}
             </Form.Item>
             <Button type="primary" htmlType="submit" size="large" className="text-center w-100">
               <strong>Order Now</strong>
@@ -138,4 +261,4 @@ const AdvancedFormExamples = () => {
   )
 }
 
-export default AdvancedFormExamples
+export default OrderForm
