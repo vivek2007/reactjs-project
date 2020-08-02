@@ -16,20 +16,24 @@ const OrderForm = () => {
     console.log('Success:', values)
     let totalClicks = 0
     webSites.forEach(website => {
-      totalClicks = +values[website.clicksRequired]
+      console.log('values[website.clicksRequired]: ', values[website.clicksRequired])
+      totalClicks = values[website.clicksRequired] + totalClicks
     })
+    console.log('Total Clicks: ', totalClicks)
     if (totalClicks !== amountToPay) {
       notification.error({
-        message: 'Clicks not Validated',
+        key: 'clicksIssue',
+        message: 'Clicks not Matched',
         description: 'Number Clicks should equal to Splitting Clicks',
         placement: 'topLeft',
         duration: 5,
       })
     } else {
-      notification.error({
-        message: 'Form Success',
+      notification.close('clicksIssue')
+      notification.success({
+        message: 'Details Validation Success',
         description: 'Placing your Order...',
-        placement: 'topLeft',
+        placement: 'topRight',
         duration: 10,
       })
     }
