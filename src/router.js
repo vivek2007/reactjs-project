@@ -29,6 +29,28 @@ const routes = [
     exact: true,
   },
 
+  // Dashboards
+  {
+    path: '/blog/add-post',
+    Component: lazy(() => import('Pages/apps/wordpress-add')),
+    exact: true,
+  },
+  {
+    path: '/blog/posts-list',
+    Component: lazy(() => import('Pages/apps/wordpress-post')),
+    exact: true,
+  },
+  {
+    path: '/dashboard/gamma',
+    Component: lazy(() => import('Pages/dashboard/gamma')),
+    exact: true,
+  },
+  {
+    path: '/dashboard/crypto',
+    Component: lazy(() => import('Pages/dashboard/crypto')),
+    exact: true,
+  },
+
   // Ecommerce
   {
     path: '/ecommerce/dashboard',

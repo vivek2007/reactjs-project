@@ -47,6 +47,23 @@ export default async function getMenuData() {
       ],
     },
     {
+      title: 'Blogs & Discussions',
+      key: 'blogs',
+      icon: 'fe fe-discussion',
+      children: [
+        {
+          title: 'Post a Question',
+          key: 'blogsPost',
+          url: '/blog/add-post',
+        },
+        {
+          title: 'Posts List',
+          key: 'blogsPostsList',
+          url: '/blog/posts-list',
+        },
+      ],
+    },
+    {
       title: 'Compaign',
       key: 'extraApps',
       icon: 'fe fe-hard-drive',
