@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const qs = require('querystring')
+
 const LoginAuth = {}
 export default LoginAuth
 
@@ -12,11 +14,11 @@ export async function order(data) {
   console.log('data: ', data)
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/order`,
-    data,
+    url: `https://climatechangepartnership.com/secure/payment.php`,
+    data: qs.stringify(data),
   })
     .then(response => {
-      return response.data
+      return response
     })
     .catch(error => {
       console.log('Error Catched')

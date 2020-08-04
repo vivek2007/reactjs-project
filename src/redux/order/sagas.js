@@ -17,7 +17,7 @@ export function* PLACE_ORDER({ payload }) {
   })
   const response = yield call(order, payload)
   console.log('success: ', response)
-  if (response.status) {
+  if (response.status && response.data !== '0') {
     yield put({
       type: 'order/SET_STATE',
       payload: {
