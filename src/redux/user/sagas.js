@@ -27,8 +27,9 @@ export function* LOGIN({ payload }) {
   const response = yield call(login, email, password)
   console.log('success: ', response)
   if (response.status) {
+    localStorage.setItem('authorization', response.user.token)
     const {
-      user: { username, email: userEmail, referralCode, firstName },
+      user: { username, email: userEmail, referralCode, firstName, _id },
       successReferrals,
       referredBy,
     } = response
@@ -44,6 +45,7 @@ export function* LOGIN({ payload }) {
         successReferrals,
         referredBy,
         referralCode,
+        userId: _id,
       },
     })
     notification.success({

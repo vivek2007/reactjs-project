@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
 import user from './user/reducers'
 import menu from './menu/reducers'
+import order from './order/reducers'
 import settings from './settings/reducers'
 
 export default history =>
@@ -9,5 +10,6 @@ export default history =>
     router: connectRouter(history),
     user,
     menu,
+    order,
     settings,
   })

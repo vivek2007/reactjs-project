@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import moment from 'moment'
+import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { Input, Slider, Form, DatePicker, InputNumber, Button, Tooltip, notification } from 'antd'
 // import { css } from 'styled-components';
@@ -11,13 +12,43 @@ function disabledDate(current) {
   return current < moment().subtract(1, 'day')
 }
 
-const OrderForm = () => {
+const mapStateToProps = ({ user, dispatch, order }) => ({
+  dispatch,
+  user,
+  order,
+})
+
+const OrderForm = ({ user, dispatch, order = {} }) => {
+  const {
+    getCardNumberProps,
+    getExpiryDateProps,
+    getCVCProps,
+    wrapperProps,
+    getCardImageProps,
+    meta,
+  } = usePaymentInputs()
+
+  console.log('Props Update:.. ', order.orderSuccess)
+  // if (order.orderSuccess) {
+  //   const [form] = Form.useForm();
+  //   form.resetFields();
+  //   dispatch({
+  //     type: 'order/SET_STATE',
+  //     payload: {
+  //       orderSuccess: false,
+  //     },
+  //   })
+  // }
   const onFinish = values => {
-    console.log('Success:', values)
     let totalClicks = 0
+    const websites = []
     webSites.forEach(website => {
       console.log('values[website.clicksRequired]: ', values[website.clicksRequired])
       totalClicks = values[website.clicksRequired] + totalClicks
+      websites.push({
+        website: values[website.name],
+        clicks: values[website.clicksRequired],
+      })
     })
     console.log('Total Clicks: ', totalClicks)
     if (totalClicks !== amountToPay) {
@@ -29,18 +60,30 @@ const OrderForm = () => {
         duration: 5,
       })
     } else {
+      console.log('Success:', values)
       notification.close('clicksIssue')
-      notification.success({
-        message: 'Details Validation Success',
-        description: 'Placing your Order...',
-        placement: 'topRight',
-        duration: 10,
+      // notification.success({
+      //   message: 'Details Validation Success',
+      //   description: 'Placing your Order...',
+      //   placement: 'topRight',
+      //   duration: 10,
+      // })
+      const dataToSend = {
+        userID: user.userId,
+        totalClicks,
+        launchDate: values.requiredDate.format('YYYY-MM-DDT00:00:00Z'),
+        cardNumber: values.paymentDetails_cardNumber,
+        cardType: meta.cardType.type,
+        expiry: values.paymentDetails_cardExpiry.replace(/ /g, ''),
+        cvv: values.paymentDetails_cardCVV,
+        websites,
+      }
+      console.log('dataToSend: ', dataToSend)
+      dispatch({
+        type: 'order/PLACE_ORDER',
+        payload: dataToSend,
       })
     }
-    // dispatch({
-    //   type: 'user/REGISTER',
-    //   payload: values,
-    // })
   }
 
   const onFinishFailed = errorInfo => {
@@ -76,19 +119,8 @@ const OrderForm = () => {
     } else {
       freshListOfWebSites.splice(index, 1)
     }
-    // freshListOfWebSites.forEach((website, objectIndex) => {
-    //   website.name = `websiteURL_${objectIndex}`;
-    // })
     setWebSites(freshListOfWebSites)
   }
-
-  const {
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps,
-    wrapperProps,
-    getCardImageProps,
-  } = usePaymentInputs()
 
   const formItemLayout = {
     labelCol: {
@@ -224,7 +256,7 @@ const OrderForm = () => {
               <Form.Item
                 style={{ display: 'inline-block', width: 'calc(25% - 8px)' }}
                 rules={[{ required: true, message: 'Please input expiry' }]}
-                name="paymentDetails_cardCVV"
+                name="paymentDetails_cardExpiry"
               >
                 <PaymentInputsWrapper {...wrapperProps}>
                   <input {...getExpiryDateProps()} name="creditCardExpiry" />
@@ -233,7 +265,7 @@ const OrderForm = () => {
               <Form.Item
                 style={{ display: 'inline-block', width: 'calc(25% - 8px)' }}
                 rules={[{ required: true, message: 'Please input CVC' }]}
-                name="paymentDetails_cardExpiry"
+                name="paymentDetails_cardCVV"
               >
                 <PaymentInputsWrapper {...wrapperProps}>
                   <input {...getCVCProps()} name="creditCardCVC" />
@@ -255,7 +287,13 @@ const OrderForm = () => {
             <Form.Item name="amount" label="Amount">
               {`$ ${amountToPay}`}
             </Form.Item>
-            <Button type="primary" htmlType="submit" size="large" className="text-center w-100">
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              className="text-center w-100"
+              loading={user.loading}
+            >
               <strong>Order Now</strong>
             </Button>
           </Form>
@@ -265,4 +303,4 @@ const OrderForm = () => {
   )
 }
 
-export default OrderForm
+export default connect(mapStateToProps)(OrderForm)
