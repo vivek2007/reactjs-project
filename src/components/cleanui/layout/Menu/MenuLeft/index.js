@@ -188,9 +188,14 @@ const MenuLeft = ({
           height: isMobileView || isMenuUnfixed ? 'calc(100% - 64px)' : 'calc(100% - 110px)',
         }}
       >
-        <div className={style.logoContainer}>
+        <div className={`${style.logoContainer} pl-2`}>
           <div className={style.logo}>
-            <img src="resources/images/site_logo.png" className="mr-2" alt="Clean UI" />
+            <img
+              src="resources/images/site_logo.png"
+              className="mr-2"
+              alt="Clean UI"
+              style={{ width: '150px', height: '50px' }}
+            />
             {/* <div className={style.name}>{logo}</div> */}
             {logo === 'Clicks' && <div className={style.descr}>React</div>}
           </div>
