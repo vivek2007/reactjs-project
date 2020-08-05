@@ -222,7 +222,7 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
 
   return (
     <div>
-      <Helmet title="Advanced / Form Examples" />
+      <Helmet title="Order Clicks" />
       <div className="card">
         <div className="card-body my-slider">
           <h5 className="mb-4">
