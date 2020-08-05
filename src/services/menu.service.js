@@ -28,7 +28,6 @@ export default async function getMenuData() {
         },
       ],
     },
-
     {
       title: 'Compensation Plan',
       key: 'apps',
@@ -39,10 +38,22 @@ export default async function getMenuData() {
           key: 'appsProfile',
           url: '/apps/profile',
         },
+      ],
+    },
+    {
+      title: 'Orders',
+      key: 'orders',
+      icon: 'fe fe-shopping-cart',
+      children: [
         {
-          title: 'Buy Clicks',
-          key: 'orderForm',
+          title: 'Order Clicks',
+          key: 'ordersClicks',
           url: '/order/order-form',
+        },
+        {
+          title: 'Order History',
+          key: 'orderHistory',
+          url: '/order/order-history',
         },
       ],
     },

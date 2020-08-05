@@ -174,7 +174,7 @@ const Sidebar = ({
   }
 
   return (
-    <div>
+    <div style={{ display: 'none' }}>
       <div
         className={classNames(style.cui__sidebar, {
           [style.cui__sidebar__toggled]: isSidebarOpen,

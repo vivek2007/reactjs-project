@@ -58,7 +58,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/ecommerce/orders',
+    path: '/order/order-history',
     Component: lazy(() => import('Pages/ecommerce/orders')),
     exact: true,
   },
