@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import moment from 'moment'
+import axios from 'axios'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { Input, Slider, Form, DatePicker, InputNumber, Button, Tooltip, notification } from 'antd'
@@ -39,6 +40,12 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
   //     },
   //   })
   // }
+  const placeOrder = dataToSend => {
+    dispatch({
+      type: 'order/PLACE_ORDER',
+      payload: dataToSend,
+    })
+  }
   const onFinish = values => {
     let totalClicks = 0
     const websites = []
@@ -79,21 +86,63 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
         websites,
       }
 
-      // const newDataToSend = {
-      //   name: 'test',
-      //   email: 'test@gmail.com',
-      //   amount: totalClicks,
-      //   card_number: values.paymentDetails_cardNumber.replace(/ /g, ''),
-      //   card_cvc: parseInt(values.paymentDetails_cardCVV, 10),
-      //   card_exp_month: parseInt(values.paymentDetails_cardExpiry.split('/', 2)[0].trim(), 8),
-      //   card_exp_year:
-      //     parseInt(values.paymentDetails_cardExpiry.split('/', 2)[1].trim(), 10) + 2000,
-      //   subscribe: '',
-      // }
+      const newDataToSend = {
+        name: 'test',
+        email: 'test@gmail.com',
+        amount: totalClicks,
+        card_number: values.paymentDetails_cardNumber.replace(/ /g, ''),
+        card_cvc: parseInt(values.paymentDetails_cardCVV, 10),
+        card_exp_month: parseInt(values.paymentDetails_cardExpiry.split('/', 2)[0].trim(), 8),
+        card_exp_year:
+          parseInt(values.paymentDetails_cardExpiry.split('/', 2)[1].trim(), 10) + 2000,
+        subscribe: '',
+      }
       dispatch({
-        type: 'order/PLACE_ORDER',
-        payload: dataToSend,
+        type: 'user/SET_STATE',
+        payload: {
+          loading: true,
+        },
       })
+      axios({
+        method: 'post',
+        url: `https://climatechangepartnership.com/secure/payment.php`,
+        newDataToSend,
+      })
+        .then(response => {
+          dispatch({
+            type: 'user/SET_STATE',
+            payload: {
+              loading: false,
+            },
+          })
+          if (response.data !== '0') {
+            placeOrder(dataToSend)
+          } else {
+            notification.error({
+              key: 'payment_filed',
+              message: 'Payment Failed',
+              description: 'Payment Failed, Order cannot be proceed',
+              placement: 'topLeft',
+              duration: 5,
+            })
+          }
+        })
+        .catch(error => {
+          dispatch({
+            type: 'user/SET_STATE',
+            payload: {
+              loading: false,
+            },
+          })
+          console.log('Error Catched: ', error)
+          notification.error({
+            key: 'payment_filed',
+            message: 'Payment Failed',
+            description: 'Payment Failed, Order cannot be proceed',
+            placement: 'topLeft',
+            duration: 5,
+          })
+        })
     }
   }
 
@@ -265,7 +314,7 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
                 </PaymentInputsWrapper>
               </Form.Item>
               <Form.Item
-                style={{ display: 'inline-block', width: 'calc(25% - 8px)' }}
+                style={{ display: 'inline-block', width: 'calc(19% - 8px)' }}
                 rules={[{ required: true, message: 'Please input expiry' }]}
                 name="paymentDetails_cardExpiry"
               >
