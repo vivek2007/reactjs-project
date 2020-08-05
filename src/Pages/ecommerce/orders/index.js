@@ -155,7 +155,7 @@ class EcommerceOrders extends React.Component {
               <h5 className="mb-0">Latest Orders</h5>
             </div>
             <div className="d-flex flex-column justify-content-center">
-              <a className="btn btn-primary" href="#" onClick={e => e.preventDefault()}>
+              <a className="btn btn-primary" href="/#/order/order-form">
                 New Order
               </a>
             </div>
