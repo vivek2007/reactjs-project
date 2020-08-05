@@ -25,7 +25,7 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
     getCVCProps,
     wrapperProps,
     getCardImageProps,
-    // meta,
+    meta,
   } = usePaymentInputs()
 
   console.log('Props Update:.. ', order.orderSuccess)
@@ -68,32 +68,31 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
       //   placement: 'topRight',
       //   duration: 10,
       // })
-      // const dataToSend = {
-      //   userID: user.userId,
-      //   totalClicks,
-      //   launchDate: values.requiredDate.format('YYYY-MM-DDT00:00:00Z'),
-      //   cardNumber: values.paymentDetails_cardNumber,
-      //   cardType: meta.cardType.type,
-      //   expiry: values.paymentDetails_cardExpiry.replace(/ /g, ''),
-      //   cvv: values.paymentDetails_cardCVV,
-      //   websites,
-      // }
-
-      const newDataToSend = {
-        name: 'test',
-        email: 'test@gmail.com',
-        amount: totalClicks,
-        card_number: values.paymentDetails_cardNumber.replace(/ /g, ''),
-        card_cvc: parseInt(values.paymentDetails_cardCVV, 10),
-        card_exp_month: parseInt(values.paymentDetails_cardExpiry.split('/', 2)[0].trim(), 8),
-        card_exp_year:
-          parseInt(values.paymentDetails_cardExpiry.split('/', 2)[1].trim(), 10) + 2000,
-        subscribe: '',
+      const dataToSend = {
+        userID: user.userId,
+        totalClicks,
+        launchDate: values.requiredDate.format('YYYY-MM-DDT00:00:00Z'),
+        cardNumber: values.paymentDetails_cardNumber,
+        cardType: meta.cardType.type,
+        expiry: values.paymentDetails_cardExpiry.replace(/ /g, ''),
+        cvv: values.paymentDetails_cardCVV,
+        websites,
       }
-      console.log('dataToSend: ', newDataToSend)
+
+      // const newDataToSend = {
+      //   name: 'test',
+      //   email: 'test@gmail.com',
+      //   amount: totalClicks,
+      //   card_number: values.paymentDetails_cardNumber.replace(/ /g, ''),
+      //   card_cvc: parseInt(values.paymentDetails_cardCVV, 10),
+      //   card_exp_month: parseInt(values.paymentDetails_cardExpiry.split('/', 2)[0].trim(), 8),
+      //   card_exp_year:
+      //     parseInt(values.paymentDetails_cardExpiry.split('/', 2)[1].trim(), 10) + 2000,
+      //   subscribe: '',
+      // }
       dispatch({
         type: 'order/PLACE_ORDER',
-        payload: newDataToSend,
+        payload: dataToSend,
       })
     }
   }

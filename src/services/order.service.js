@@ -14,7 +14,7 @@ export async function order(data) {
   console.log('data: ', data)
   return axios({
     method: 'post',
-    url: `https://climatechangepartnership.com/secure/payment.php`,
+    url: `http://18.237.7.208:3000/v1/user/order`,
     data: qs.stringify(data),
   })
     .then(response => {

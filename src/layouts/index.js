@@ -48,7 +48,7 @@ const Layout = ({ user, children, location: { pathname, search } }) => {
   const DEMO_AUTH = process.env.REACT_APP_AUTHENTICATED === 'true'
 
   const Container = Layouts[getLayout()]
-  const isUserAuthorized = DEMO_AUTH || true
+  const isUserAuthorized = DEMO_AUTH || user.authorized
   const isUserLoading = user.loading
   const isAuthLayout = getLayout() === 'auth'
 

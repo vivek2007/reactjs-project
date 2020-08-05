@@ -1,6 +1,7 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects'
 import { notification } from 'antd'
-import { history } from 'index'
+import store from 'store'
+import { history, store as reduxStore } from 'index'
 import { currentAccount, logout } from 'services/firebase.auth.service'
 import {
   login,
@@ -33,20 +34,27 @@ export function* LOGIN({ payload }) {
       successReferrals,
       referredBy,
     } = response
+    const dataToStore = {
+      loading: false,
+      name: firstName,
+      username,
+      email: userEmail,
+      role: 'admin',
+      authorized: true,
+      successReferrals,
+      referredBy,
+      referralCode,
+      userId: _id,
+      id: _id,
+    }
+    yield store.set(`app.user`, dataToStore)
+    yield reduxStore.dispatch({
+      type: 'user/SET_STATE',
+      payload: dataToStore,
+    })
     yield put({
       type: 'user/SET_STATE',
-      payload: {
-        loading: false,
-        name: firstName,
-        username,
-        email: userEmail,
-        role: 'admin',
-        authorized: true,
-        successReferrals,
-        referredBy,
-        referralCode,
-        userId: _id,
-      },
+      payload: dataToStore,
     })
     notification.success({
       message: 'Logged In',
