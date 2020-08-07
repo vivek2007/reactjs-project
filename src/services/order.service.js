@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const qs = require('querystring')
+// const qs = require('querystring')
 
 const LoginAuth = {}
 export default LoginAuth
@@ -15,7 +15,8 @@ export async function order(data) {
   return axios({
     method: 'post',
     url: `http://18.237.7.208:3000/v1/user/order`,
-    data: qs.stringify(data),
+    // data: qs.stringify(data),
+    data,
   })
     .then(response => {
       return response

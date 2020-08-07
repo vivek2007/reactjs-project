@@ -4,14 +4,28 @@ import { Table } from 'antd'
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
 import moment from 'moment'
+import store from 'store'
+import { history, store as reduxStore } from 'index'
 // import table from './data.json'
 
 class EcommerceOrders extends React.Component {
+  static openInvoice(event, rowData) {
+    event.preventDefault()
+    store.set(`app.order`, { orderForInvoice: rowData })
+    reduxStore.dispatch({
+      type: 'order/SET_STATE',
+      payload: {
+        orderForInvoice: rowData,
+      },
+    })
+    history.push('/order/invoice')
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       ordersList: [],
-      page: 1,
+      page: 0,
       numberOfOrders: 100,
     }
     this.fetchOrders = this.fetchOrders.bind(this)
@@ -129,11 +143,14 @@ class EcommerceOrders extends React.Component {
       {
         title: 'Action',
         key: 'action',
-        render: () => (
+        render: row => (
           <span>
-            <a href="#" onClick={e => e.preventDefault()} className="btn btn-sm btn-light mr-2">
-              <i className="fe fe-edit mr-2" />
-              View
+            <a
+              href="#"
+              onClick={e => EcommerceOrders.openInvoice(e, row)}
+              className="btn btn-sm btn-light mr-2"
+            >
+              View Invoice
             </a>
             {/* <a href="#" onClick={e => e.preventDefault()} className="btn btn-sm btn-light">
               <small>

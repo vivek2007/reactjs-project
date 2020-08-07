@@ -288,7 +288,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/advanced/invoice',
+    path: '/order/invoice',
     Component: lazy(() => import('Pages/advanced/invoice')),
     exact: true,
   },

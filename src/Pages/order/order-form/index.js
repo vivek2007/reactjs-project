@@ -7,6 +7,7 @@ import { Input, Slider, Form, DatePicker, InputNumber, Button, Tooltip, notifica
 // import { css } from 'styled-components';
 import { usePaymentInputs, PaymentInputsWrapper } from 'react-payment-inputs'
 import images from 'react-payment-inputs/images'
+import * as qs from 'querystring'
 
 function disabledDate(current) {
   // Can not select days before today and today
@@ -84,6 +85,7 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
         expiry: values.paymentDetails_cardExpiry.replace(/ /g, ''),
         cvv: values.paymentDetails_cardCVV,
         websites,
+        amount: totalClicks,
       }
 
       const newDataToSend = {
@@ -106,7 +108,7 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
       axios({
         method: 'post',
         url: `https://climatechangepartnership.com/secure/payment.php`,
-        newDataToSend,
+        data: qs.stringify(newDataToSend),
       })
         .then(response => {
           dispatch({

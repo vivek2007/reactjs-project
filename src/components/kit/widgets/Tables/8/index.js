@@ -1,148 +1,88 @@
-import React, { useState } from 'react'
-import { Table } from 'antd'
-import data from './data.json'
-import style from './style.module.scss'
+import React from 'react'
+import { connect } from 'react-redux'
+import moment from 'moment'
 
-const columns = [
-  {
-    title: 'PRODUCT',
-    dataIndex: 'product',
-    className: 'text-gray-6',
-    key: 'product',
-  },
-  {
-    title: 'LOCATION',
-    dataIndex: 'location',
-    key: 'location',
-    className: 'text-gray-6',
-    render: text => {
-      return (
-        <a href="" className="text-blue">
-          {text}
-        </a>
-      )
-    },
-  },
-  {
-    title: 'DESCRIPTION',
-    dataIndex: 'description',
-    className: 'text-gray-6',
-    key: 'description',
-  },
-  {
-    title: 'QUANTITY',
-    dataIndex: 'quantity',
-    key: 'quantity',
-    className: 'text-right text-gray-6',
-    render: text => {
-      return <div className="font-weight-bold">{text}</div>
-    },
-  },
-  {
-    title: 'UNIT COST',
-    dataIndex: 'cost',
-    key: 'cost',
-    className: 'text-right text-gray-6',
-    render: text => {
-      return <div className="font-weight-bold">{text}</div>
-    },
-  },
-  {
-    title: 'SUMMARY',
-    dataIndex: 'overall',
-    key: 'overall',
-    className: 'text-right text-gray-6',
-    render: text => {
-      return <div className="font-weight-bold">{text}</div>
-    },
-  },
-]
+const mapStateToProps = ({ user, order }) => ({
+  order,
+  user,
+})
 
-const Table8 = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState(['1', '2', '3'])
-
-  const onSelectChange = keys => {
-    setSelectedRowKeys(keys)
-  }
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  }
-
+const Table8 = ({ user, order }) => {
+  const { orderForInvoice = {} } = order
   return (
     <div>
       <div className="d-flex flex-wrap">
         <div className="flex-grow-1 d-flex flex-column flex-sm-row mb-4">
           <div className="font-size-18 font-weight-bold text-uppercase mb-4">
             <div>From:</div>
-            <div className="text-dark mb-3">Amazon delivery</div>
-            <img
-              className="d-block"
-              src="resources/images/content/amazon-logo.jpg"
-              alt="Amazon logo"
-            />
+            <img className="d-block" src="resources/images/site_logo.png" alt="Amazon logo" />
           </div>
           <div className="ml-sm-auto mr-lg-auto pr-3">
-            795 Folsom Ave, Suite 600
+            Clicks Office Address Line 1
             <br />
-            San Francisco, CA, 94107
+            Clicks Office Address Line 2
             <br />
-            E-mail: example@amazon.com
+            E-mail: support@clicks.com
             <br />
-            Phone: (123) 456-7890
+            Phone: Clicks_Support_Phone_Number
             <br />
-            Fax: 800-692-7753
+            Fax: Clicks_Fax_Number
           </div>
         </div>
         <div className="flex-grow-1 d-flex flex-column flex-sm-row mb-4">
           <div className="font-size-18 font-weight-bold text-uppercase pb-4">
             <div>To:</div>
             <div className="text-dark mb-3">Invoice info</div>
-            <div className="text-dark">W32567-2352-4756</div>
-            <div className="text-dark">Artour Arteezy</div>
+            <div className="text-dark">#{orderForInvoice.invoiceID}</div>
+            <div className="text-dark">{user.name}</div>
           </div>
           <div className="mt-auto mt-sm-0 ml-sm-auto pr-3 mr-lg-auto">
-            795 Folsom Ave, Suite 600
+            Customer Address Line 1
             <br />
-            San Francisco, CA, 94107
+            Customer Address Line 2
             <br />
-            P: (123) 456-7890
+            P: customer Phone Number
             <br />
-            Invoice Date: January 20, 2016
+            Invoice Date:{' '}
+            {moment(new Date(orderForInvoice.createdAt)).format('YYYY-MMM-DD HH:MM:SS')}
             <br />
-            Due Date: January 22, 2016
+            Due Date: {moment(new Date(orderForInvoice.launchDate)).format('YYYY-MMM-DD')}
           </div>
         </div>
       </div>
-      <div className="mb-4">
-        <Table
-          className={style.table}
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-          rowSelection={rowSelection}
-        />
+      <div className="text-left font-size-18 text-dark p-4 rounded bg-light mb-4">
+        <div>
+          Total Clicks: <span className="font-weight-bold">{orderForInvoice.totalClicks}</span>
+        </div>
+        <div>Websites:</div>
+        {orderForInvoice.websites.map(websiteObject => (
+          <div>
+            <a href={websiteObject.website} target="_blank" rel="noopener noreferrer">
+              {websiteObject.website}
+            </a>
+            <span className="font-weight-bold ml-4">{websiteObject.clicks} - clicks</span>
+          </div>
+        ))}
       </div>
-      <div className="text-right font-size-18 text-dark p-4 rounded bg-light">
+      <div className="text-left font-size-18 text-dark p-4 rounded bg-light mb-4">
         <div>
-          Sub - Total amount: <span className="font-weight-bold">$406,472.50</span>
+          Payment Method:{' '}
+          <span className="font-weight-bold">
+            {orderForInvoice.cardType ? orderForInvoice.cardType.toUpperCase() : 'VISA'} |{' '}
+            {`XXXX XXXX XXXX ${orderForInvoice.cardNumber.substr(
+              orderForInvoice.cardNumber.length - 4,
+            )}`}
+          </span>
         </div>
         <div>
-          VAT: <span className="font-weight-bold">$81,294.50</span>
+          Grand Total:{' '}
+          <span className="font-weight-bold">
+            ${orderForInvoice.amount ? orderForInvoice.amount : orderForInvoice.totalClicks}
+          </span>
         </div>
-        <div>
-          Grand Total: <span className="font-weight-bold">$487,767.00</span>
-        </div>
-        <a href="" className="btn btn-outline-success mt-3 mr-3">
-          Print
-        </a>
-        <a href="" className="btn btn-success mt-3">
-          Proceed Payment
-        </a>
       </div>
     </div>
   )
 }
 
-export default Table8
+export default connect(mapStateToProps)(Table8)
