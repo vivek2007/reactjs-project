@@ -1,0 +1,79 @@
+@import 'components/mixins.scss';
+
+.headerText {
+  position: absolute;
+  top: rem(40);
+  left: rem(40);
+  font-size: rem(32);
+  line-height: rem(32);
+
+  @media (max-width: $sm-max-width) {
+    font-size: rem(30);
+  }
+
+  @media (max-width: $sm-max-width) {
+    font-size: rem(26);
+  }
+}
+
+.user {
+  text-align: center;
+  margin-top: rem(-47);
+  position: relative;
+  z-index: 1;
+}
+
+.icon {
+  position: absolute;
+  font-size: rem(80);
+  right: rem(-10);
+  bottom: rem(-10);
+}
+
+.carousel {
+  :global(.ant-carousel .slick-dots-bottom) {
+    bottom: 24px;
+  }
+
+  :global(.ant-carousel .slick-dots li button) {
+    height: 7px;
+    border-radius: 3px;
+  }
+}
+
+.item {
+  position: relative;
+  padding-left: rem(55);
+  padding-bottom: rem(6);
+}
+
+.icon1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: rem(36);
+  color: $gray-5;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  border-radius: 2px;
+  background: $gray-2;
+}
+.p {
+  font-size: 12px;
+}
+.lable {
+  flex: 1%;
+  display: block;
+  position: relative;
+}
