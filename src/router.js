@@ -37,6 +37,11 @@ const routes = [
   },
   {
     path: '/blog/posts-list',
+    Component: lazy(() => import('Pages/apps/wordpress-posts')),
+    exact: true,
+  },
+  {
+    path: '/blog/post-details',
     Component: lazy(() => import('Pages/apps/wordpress-post')),
     exact: true,
   },
