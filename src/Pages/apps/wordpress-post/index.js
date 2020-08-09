@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import moment from 'moment'
-import { Modal, Form, Input, Button } from 'antd'
+import { Modal, Form, Input, Button, notification } from 'antd'
 import List15 from 'components/kit/widgets/Lists/15'
 import Comments from '../comments'
-import { getPostDetails } from '../../../services/blogs.service'
+import { getPostDetails, addComment } from '../../../services/blogs.service'
 import { BLOG_ENDPOINTS } from '../../../constants/SERVICE_ENDPOINTS'
 
 const { TextArea } = Input
@@ -16,11 +16,12 @@ class ExtraAppsWordpressPost extends React.Component {
     this.state = {
       postDetails: null,
       showModal: false,
-      url: '',
-      commentID: '',
-      replyID: '',
+      commentData: {},
+      comment: '',
     }
     this.fetchPostDetails = this.fetchPostDetails.bind(this)
+    this.commentToPost = this.commentToPost.bind(this)
+    this.onFinish = this.onFinish.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
   }
 
@@ -30,7 +31,17 @@ class ExtraAppsWordpressPost extends React.Component {
 
   onFinish(values) {
     console.log(values)
-    console.log(this.state)
+    const { commentData } = this.state
+    const { comment } = values
+    const dataToSend = {
+      url: commentData.url,
+      dataToSubmit: {
+        ...commentData,
+        comment,
+        url: undefined,
+      },
+    }
+    this.commentToPost(dataToSend)
   }
 
   getDifferenceTimeSpan(createdDate) {
@@ -63,11 +74,31 @@ class ExtraAppsWordpressPost extends React.Component {
     return <span>{stringToreturn}</span>
   }
 
+  commentToPost(dataToSend) {
+    Promise.resolve(addComment(dataToSend)).then(response => {
+      console.log('response: ', response)
+      if (response.status) {
+        notification.success({
+          message: 'success',
+          description: 'Comment Added Successfully',
+          placement: 'topRight',
+          duration: 5,
+        })
+        this.toggleModal(null, {})
+        this.fetchPostDetails()
+      }
+    })
+  }
+
   toggleModal(e, dataToSubmit) {
     console.log(dataToSubmit)
-    e.preventDefault()
+    if (e) {
+      e.preventDefault()
+    }
     this.setState(prevState => ({
+      comment: '',
       showModal: !prevState.showModal,
+      commentData: dataToSubmit,
     }))
   }
 
@@ -94,19 +125,27 @@ class ExtraAppsWordpressPost extends React.Component {
 
   /* eslint no-underscore-dangle: 0 */
   render() {
-    const { postDetails: post, showModal } = this.state
+    const { postDetails: post, showModal, comment } = this.state
     const {
       user: { loading, userId },
     } = this.props
     if (!post) return null
     const { _id: postID } = post
     const modalBody = () => (
-      <Form className="login-form" onFinish={this.onFinish}>
+      <Form className="login-form" onFinish={this.onFinish} initialValues={{ comment: '' }}>
         <Form.Item
           name="comment"
           rules={[{ required: true, message: 'Please enter your comment' }]}
         >
-          <TextArea rows={3} placeholder="Your comment" />
+          <TextArea
+            rows={3}
+            placeholder="Your comment"
+            allowClear
+            value={comment}
+            onChange={e => {
+              this.setState({ comment: e.target.value })
+            }}
+          />
         </Form.Item>
         <Form.Item className="text-center">
           <Button
@@ -128,7 +167,7 @@ class ExtraAppsWordpressPost extends React.Component {
 
     return (
       <div>
-        <Helmet title="Wordpress Post" />
+        <Helmet title="Post Details" />
         <div className="row">
           <div className="col-xl-9 col-lg-12">
             <div className="card">
@@ -184,15 +223,22 @@ class ExtraAppsWordpressPost extends React.Component {
                 <h6 className="mb-4 text-uppercase">
                   <strong>Comments ({post.commentsCount ? post.commentsCount : 0})</strong>
                 </h6>
-                {post.commentsCount && <Comments commentsList={post.comments} />}
+                {post.commentsCount && (
+                  <Comments
+                    commentsList={post.comments}
+                    onComment={this.toggleModal}
+                    userId={userId}
+                    postID={postID}
+                  />
+                )}
 
-                <a
+                {/* <a
                   href="#"
                   onClick={e => e.preventDefault()}
                   className="d-block btn btn-light text-primary mt-3"
                 >
                   Load More
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
