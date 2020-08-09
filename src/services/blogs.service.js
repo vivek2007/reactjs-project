@@ -92,3 +92,26 @@ export async function getPostDetails(data) {
       return errorData
     })
 }
+
+export async function addComment(data) {
+  return axios({
+    method: 'post',
+    url: data.url,
+    data: data.dataToSubmit,
+  })
+    .then(response => {
+      return response.data
+    })
+    .catch(error => {
+      console.log('Error Catched')
+      let errorData = { status: 0, message: error.message }
+      if (error.response.data) {
+        const { status, message } = error.response.data
+        errorData = {
+          status,
+          message,
+        }
+      }
+      return errorData
+    })
+}
