@@ -63,7 +63,7 @@ export default async function getMenuData() {
       icon: 'fe fe-discussion',
       children: [
         {
-          title: 'Post a Question',
+          title: 'Create a Post',
           key: 'blogsPost',
           url: '/blog/add-post',
         },
