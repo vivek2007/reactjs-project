@@ -41,7 +41,9 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
   //     },
   //   })
   // }
-  const placeOrder = dataToSend => {
+  const placeOrder = (dataToSend, transID) => {
+    dataToSend.transactionID = transID
+    console.log('dataToSend Before DISPATCH', dataToSend)
     dispatch({
       type: 'order/PLACE_ORDER',
       payload: dataToSend,
@@ -118,7 +120,7 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
             },
           })
           if (response.data !== '0') {
-            placeOrder(dataToSend)
+            placeOrder(dataToSend, response.data)
           } else {
             notification.error({
               key: 'payment_filed',
@@ -247,6 +249,7 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
             </Form.Item>
             {webSites.map((website, index) => (
               <Form.Item
+                key="index"
                 label={webSites.length === 1 ? 'Website' : 'Website and Clicks'}
                 style={{ marginBottom: 0 }}
               >

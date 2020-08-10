@@ -1,24 +1,26 @@
-import React from 'react'
+/* eslint-disable */
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import ChartistGraph from 'react-chartist'
+import { connect } from 'react-redux'
+// import ChartistGraph from 'react-chartist'
 import ChartistTooltip from 'chartist-plugin-tooltips-updated'
-import { Table } from 'antd'
-import Chart12 from 'components/kit/widgets/Charts/12'
-import Chart12v1 from 'components/kit/widgets/Charts/12v1'
-import General5v1 from 'components/kit/widgets/General/5v1'
-import General2 from 'components/kit/widgets/General/2'
-import General2v1 from 'components/kit/widgets/General/2v1'
-import General2v2 from 'components/kit/widgets/General/2v2'
-import General13v1 from 'components/kit/widgets/General/13v1'
-import List10 from 'components/kit/widgets/Lists/10'
-import List11 from 'components/kit/widgets/Lists/11'
+import { Table, Progress } from 'antd'
+// import Chart12 from 'components/kit/widgets/Charts/12'
+// import Chart12v1 from 'components/kit/widgets/Charts/12v1'
+// import General5v1 from 'components/kit/widgets/General/5v1'
+// import General2 from 'components/kit/widgets/General/2'
+// import General2v1 from 'components/kit/widgets/General/2v1'
+// import General2v2 from 'components/kit/widgets/General/2v2'
+// import General13v1 from 'components/kit/widgets/General/13v1'
+// import List10 from 'components/kit/widgets/Lists/10'
+// import List11 from 'components/kit/widgets/Lists/11'
 
-import {
-  inboundBandwidthData,
-  outboundBandwidthData,
-  supportCasesTableData,
-  supportCasesPieData,
-} from './data.json'
+// import {
+//   inboundBandwidthData,
+//   outboundBandwidthData,
+//   supportCasesTableData,
+//   supportCasesPieData,
+// } from './data.json'
 
 import styles from './style.module.scss'
 
@@ -81,11 +83,111 @@ const supportCasesTableColumns = [
   },
 ]
 
-const DashboardGamma = () => {
+const mapStateToProps = ({ dispatch, membershipLevel = {} }) => {
+  const data = {
+    membership: membershipLevel.membershipLevelData,
+    dispatch,
+  }
+  return data
+}
+
+const DashboardGamma = ({ dispatch, membership }) => {
+  useEffect(() => {
+    // code to run on component mount
+    dispatch({
+      type: 'membership-levels/GET_DATA',
+    })
+  })
+
   return (
     <div>
       <Helmet title="Dashboard Gamma" />
+
+      <div className="kit__utils__heading">
+        <h5>Membership Levels</h5>
+      </div>
+
+      <div className="card text-white bg-dark">
+        <div className={`${styles.container} pt-3`}>
+          <div className={`${styles.status} bg-success`} />
+          <div className="mr-auto pb-3">
+            <div className="text-uppercase font-weight-bold font-size-24 text-center">
+              {membership.message}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <Progress
+          type="line"
+          percent={50}
+          // showInfo={true}
+          strokeWidth={50}
+          strokeColor="#0275d8"
+          status="active"
+          trailColor="#e9ecef"
+        />
+      </div>
+
       <div className="row">
+        {membership.membershipLevels.map((value, index) => {
+          index = index + 1
+          return (
+            <div className="col" key={index}>
+              <div
+                className={`card ${
+                  index === 2 || index === 3
+                    ? 'bg-light'
+                    : index === 4 || index === 5
+                    ? 'bg-primary'
+                    : null
+                }`}
+              >
+                <div className="card-body">
+                  <div className="pt-5 pb-5 pl-5 pr-5 text-center flex-grow-1">
+                    <i
+                      className={`fe font-size-80 mb-3 d-block ${
+                        index === 4 || index === 5 ? 'fe-cpu text-white' : 'fe-inbox'
+                      }`}
+                    />
+                    <div
+                      className={`font-weight-bold font-size-36 ${
+                        index === 4 || index === 5 ? 'text-light' : 'text-dark '
+                      }`}
+                    >
+                      Level {value.level}
+                    </div>
+                    <div className="text-dark font-weight-bold font-size-28 mb-3">
+                      <mark className="rounded" style={{ padding: '1px 10px 1px 10px' }}>
+                        {value.clicks} Clicks
+                      </mark>
+                    </div>
+                    <p className={`${index === 4 || index === 5 ? 'text-light' : 'text-dark '}`}>
+                      {value.description}
+                    </p>
+                    <a
+                      className={`btn width-130 mt-2 btn-lg rounded ${
+                        index === 4 || index === 5 ? 'btn-white' : 'btn-primary'
+                      }`}
+                      href="#/order/order-form"
+                    >
+                      Order now
+                    </a>
+                    <div className="text-dark font-weight-bold font-size-30 mb-3 pt-3">
+                      <span className="badge badge-danger rounded">
+                        {value.clicksLeft} clicks left
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* <div className="row">
         <div className="col-xl-12">
           <div className="row">
             <div className="col-lg-6">
@@ -186,7 +288,7 @@ const DashboardGamma = () => {
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row"> 
         <div className="col-lg-6">
           <div className="card">
             <div className="card-header border-0 pb-0">
@@ -248,9 +350,10 @@ const DashboardGamma = () => {
             </div>
           </div>
         </div>
-      </div>
+        </div>
+        */}
     </div>
   )
 }
 
-export default DashboardGamma
+export default connect(mapStateToProps)(DashboardGamma)

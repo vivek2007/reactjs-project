@@ -3,7 +3,8 @@ import user from './user/sagas'
 import order from './order/sagas'
 import menu from './menu/sagas'
 import settings from './settings/sagas'
+import membershipLevel from './membership-levels/sagas'
 
 export default function* rootSaga() {
-  yield all([user(), menu(), settings(), order()])
+  yield all([user(), menu(), settings(), order(), membershipLevel()])
 }

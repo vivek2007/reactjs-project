@@ -1,29 +1,28 @@
 import axios from 'axios'
 
-// const qs = require('querystring')
+const qs = require('querystring')
 
 const LoginAuth = {}
 export default LoginAuth
 
-export async function order(data) {
+export async function membershipData(userid) {
   // const config = {
   //     headers: {
   //         authorization: `Bearer ${localStorage.getItem('authorization')}`
   //     }
   // }
-  console.log('data: ', data)
+  const userDData = { userID: userid }
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/order`,
-    // data: qs.stringify(data),
-    data,
+    url: `http://18.237.7.208:3000/v1/user/get-membership-levels`,
+    data: qs.stringify(userDData),
   })
     .then(response => {
-      console.log('RESPONSE FROM ORDER SERVICE', response)
-      return response
+      console.log('REPONSE FROM API', response.data)
+      return response.data
     })
     .catch(error => {
-      console.log('Error Catched')
+      console.log('Error Catched in membership-level')
       let errorData = { status: 0, message: error.message }
       if (error.response.data) {
         const { status, message } = error.response.data

@@ -9,12 +9,15 @@ const notificationSettings = {
 }
 
 export function* PLACE_ORDER({ payload }) {
+  console.log('payload from order saga', payload)
+
   yield put({
     type: 'user/SET_STATE',
     payload: {
       loading: true,
     },
   })
+
   const response = yield call(order, payload)
   console.log('success: ', response)
   if (response.status && response.data !== '0') {
