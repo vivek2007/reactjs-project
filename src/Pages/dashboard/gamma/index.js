@@ -94,22 +94,22 @@ const mapStateToProps = ({ dispatch, membershipLevel = {} }) => {
 const DashboardGamma = ({ dispatch, membership }) => {
   useEffect(() => {
     // code to run on component mount
+    console.log('MEMBERSHIP LEVEL PAGE DID MOUNT')
     dispatch({
       type: 'membership-levels/GET_DATA',
     })
-  })
+  }, [])
 
   function checkNextLevel() {
     for (var i = 0; i < membership.membershipLevels.length; i++) {
       if (membership.membershipLevels[i].clicksLeft > 0) {
         var currentClicks = membership.membershipLevels[i].clicks
-        var currentClicksLeft = membership.membershipLevels[i].clicksLeft
         break
       }
     }
     let currentData = {
       clicks: currentClicks,
-      clicksLeft: currentClicksLeft,
+      clicksLeft: membership.totalClicksPurchased,
     }
     return currentData
   }
@@ -138,7 +138,7 @@ const DashboardGamma = ({ dispatch, membership }) => {
       <div className="mb-4">
         <Progress
           type="line"
-          percent={(ProgressBarData.clicksLeft / ProgressBarData.clicks) * 100}
+          percent={((ProgressBarData.clicksLeft / ProgressBarData.clicks) * 100).toFixed()}
           // showInfo={true}
           strokeWidth={50}
           strokeColor="#0275d8"
