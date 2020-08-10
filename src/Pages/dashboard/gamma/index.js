@@ -99,6 +99,23 @@ const DashboardGamma = ({ dispatch, membership }) => {
     })
   })
 
+  function checkNextLevel() {
+    for (var i = 0; i < membership.membershipLevels.length; i++) {
+      if (membership.membershipLevels[i].clicksLeft > 0) {
+        var currentClicks = membership.membershipLevels[i].clicks
+        var currentClicksLeft = membership.membershipLevels[i].clicksLeft
+        break
+      }
+    }
+    let currentData = {
+      clicks: currentClicks,
+      clicksLeft: currentClicksLeft,
+    }
+    return currentData
+  }
+
+  var ProgressBarData = checkNextLevel()
+
   return (
     <div>
       <Helmet title="Dashboard Gamma" />
@@ -121,7 +138,7 @@ const DashboardGamma = ({ dispatch, membership }) => {
       <div className="mb-4">
         <Progress
           type="line"
-          percent={50}
+          percent={(ProgressBarData.clicksLeft / ProgressBarData.clicks) * 100}
           // showInfo={true}
           strokeWidth={50}
           strokeColor="#0275d8"
