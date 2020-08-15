@@ -69,7 +69,10 @@ function disabledDate(current) {
 }
 
 function dateCellRender(value) {
+  console.log('value', value)
+
   const listData = getListData(value)
+  console.log('listData', listData)
   return (
     <ul className="events">
       {listData.map(item => (

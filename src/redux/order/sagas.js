@@ -1,6 +1,7 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects'
 import { notification } from 'antd'
 import { order } from 'services/order.service'
+// import { store as reduxStore } from 'index'
 import actions from './actions'
 
 const notificationSettings = {
@@ -33,6 +34,9 @@ export function* PLACE_ORDER({ payload }) {
         loading: false,
       },
     })
+    // yield reduxStore.dispatch({
+    //   type: 'membership-levels/GET_DATA'
+    // })
     notification.success({
       message: 'Order Success',
       description: 'Your Order hasbeen Successfully Placed',

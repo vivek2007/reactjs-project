@@ -91,8 +91,8 @@ const OrderForm = ({ user, dispatch, order = {} }) => {
       }
 
       const newDataToSend = {
-        name: 'test',
-        email: 'test@gmail.com',
+        name: user.name,
+        email: user.email,
         amount: totalClicks,
         card_number: values.paymentDetails_cardNumber.replace(/ /g, ''),
         card_cvc: parseInt(values.paymentDetails_cardCVV, 10),

@@ -6,6 +6,7 @@ import order from './order/reducers'
 import blog from './blog/reducers'
 import settings from './settings/reducers'
 import membershipLevel from './membership-levels/reducers'
+import professionalFeatures from './professional-features/reducers'
 
 export default history =>
   combineReducers({
@@ -16,4 +17,5 @@ export default history =>
     blog,
     settings,
     membershipLevel,
+    professionalFeatures,
   })

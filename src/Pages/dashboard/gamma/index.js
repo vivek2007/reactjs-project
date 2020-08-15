@@ -84,6 +84,7 @@ const supportCasesTableColumns = [
 ]
 
 const mapStateToProps = ({ dispatch, membershipLevel = {} }) => {
+  console.log('MAP STATE TO PROPS IN GAMMA PAGE CALLED', membershipLevel)
   const data = {
     membership: membershipLevel.membershipLevelData,
     dispatch,

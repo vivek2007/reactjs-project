@@ -26,7 +26,9 @@ const middlewares = [sagaMiddleware, routeMiddleware]
 // if (process.env.NODE_ENV === 'development') {
 //   middlewares.push(logger)
 // }
-const store = createStore(reducers(history), compose(applyMiddleware(...middlewares)))
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducers(history), composeEnhancers(applyMiddleware(...middlewares)))
 sagaMiddleware.run(sagas)
 
 ReactDOM.render(

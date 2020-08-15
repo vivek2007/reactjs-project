@@ -14,6 +14,11 @@ const routes = [
     exact: true,
   },
   {
+    path: '/dashboard/alpha/payment',
+    Component: lazy(() => import('Pages/dashboard/alpha/payment')),
+    exact: true,
+  },
+  {
     path: '/dashboard/beta',
     Component: lazy(() => import('Pages/dashboard/beta')),
     exact: true,

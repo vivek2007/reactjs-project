@@ -15,7 +15,6 @@ const Layouts = {
 }
 
 const mapStateToProps = ({ user }) => {
-  console.log('userData: ', user)
   return { user }
 }
 let previousPath = ''
