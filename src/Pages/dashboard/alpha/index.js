@@ -156,9 +156,10 @@ const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
                   className="text-light font-size-60 text-center pt-20"
                   style={{
                     position: 'absolute',
-                    marginLeft: '20%',
+                    marginLeft: '5vw',
                     marginTop: '15%',
                     lineHeight: '1',
+                    textAlign: 'center',
                   }}
                 >
                   <b>
@@ -293,7 +294,7 @@ const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
         visible={showCart}
         onCancel={handleCancel}
         footer={null}
-        width="30%"
+        width="80vh"
       >
         {/*  eslint-disable */}
         {'cartData' in professionalFeatures &&
@@ -302,18 +303,18 @@ const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
             return (
               <>
                 <div className="row">
-                  <div className="col-md-1">
+                  <div className="col-2 col-sm-1">
                     <Button
                       onClick={() => handleRemove(value)}
                       icon={<DeleteOutlined />}
                       size="medium"
                     />
                   </div>
-                  <div className="col-md-9">
+                  <div className="col-7 col-sm-9">
                     <h4>{value.name}</h4>
                     <p>{value.description}</p>
                   </div>
-                  <div className="col-md-2">
+                  <div className="col-3 col-sm-2">
                     <h4>${value.amount}</h4>
                   </div>
                 </div>
@@ -323,24 +324,22 @@ const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
         ) : tempCart && !('cartData' in professionalFeatures) ? (
           tempCart.map(value2 => {
             return (
-              <>
-                <div className="row">
-                  <div className="col-md-1">
-                    <Button
-                      onClick={() => handleRemove(value2)}
-                      icon={<DeleteOutlined />}
-                      size="medium"
-                    />
-                  </div>
-                  <div className="col-md-9">
-                    <h4>{value2.name}</h4>
-                    <p>{value2.description}</p>
-                  </div>
-                  <div className="col-md-2">
-                    <h4>${value2.amount}</h4>
-                  </div>
+              <div className="row">
+                <div className="col-2 col-sm-1">
+                  <Button
+                    onClick={() => handleRemove(value2)}
+                    icon={<DeleteOutlined />}
+                    size="medium"
+                  />
                 </div>
-              </>
+                <div className="col-7 col-sm-9">
+                  <h4>{value2.name}</h4>
+                  <p>{value2.description}</p>
+                </div>
+                <div className="col-3 col-sm-2">
+                  <h4>${value2.amount}</h4>
+                </div>
+              </div>
             )
           })
         ) : (

@@ -13,16 +13,16 @@ export default async function getMenuData() {
       children: [
         {
           title: 'New Campaign',
-          key: 'dashboard',
-          url: '/dashboard/alpha',
-        },
-        {
-          title: 'Professional Features',
           key: 'dashboardBeta',
           url: '/dashboard/beta',
         },
         {
-          title: 'Memebership Levels',
+          title: 'Professional Features',
+          key: 'dashboard',
+          url: '/dashboard/alpha',
+        },
+        {
+          title: 'Membership Levels',
           key: 'dashboardGamma',
           url: '/dashboard/gamma',
         },
@@ -75,7 +75,7 @@ export default async function getMenuData() {
       ],
     },
     {
-      title: 'Compaign',
+      title: 'Campaign',
       key: 'extraApps',
       icon: 'fe fe-hard-drive',
       children: [
