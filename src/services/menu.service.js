@@ -2,10 +2,10 @@ export default async function getMenuData() {
   return [
     {
       category: true,
-      title: 'Dashboards',
+      title: 'Home',
     },
     {
-      title: 'Dashboards',
+      title: 'Campaigns',
       key: 'dashboards',
       icon: 'fe fe-home',
       // roles: ['admin'], // set user roles with access to this route
@@ -17,15 +17,30 @@ export default async function getMenuData() {
           url: '/dashboard/beta',
         },
         {
-          title: 'Professional Features',
+          title: 'Calendar Scheduling',
           key: 'dashboard',
-          url: '/dashboard/alpha',
+          url: '/apps/github-explore',
         },
         {
-          title: 'Membership Levels',
+          title: 'Order History',
           key: 'dashboardGamma',
-          url: '/dashboard/gamma',
+          url: '/apps/github-discuss',
         },
+        {
+          title: 'Statistics and Analytics',
+          key: 'dashboardGamma',
+          url: '/apps/digitalocean-droplets',
+        },
+        // {
+        //   title: 'Professional Features',
+        //   key: 'dashboard',
+        //   url: '/dashboard/alpha',
+        // },
+        // {
+        //   title: 'Membership Levels',
+        //   key: 'dashboardGamma',
+        //   url: '/dashboard/gamma',
+        // },
       ],
     },
     {
@@ -41,68 +56,88 @@ export default async function getMenuData() {
       ],
     },
     {
-      title: 'Orders',
+      title: 'Latest Posts',
       key: 'orders',
       icon: 'fe fe-shopping-cart',
       children: [
         {
-          title: 'Order Clicks',
+          title: 'Featured News',
           key: 'ordersClicks',
-          url: '/order/order-form',
+          url: '/dashboard/alpha',
         },
         {
-          title: 'Order History',
+          title: 'General Information',
           key: 'orderHistory',
-          url: '/order/order-history',
+          url: '/dashboard/alpha',
         },
+        // {
+        //   title: 'Order Clicks',
+        //   key: 'ordersClicks',
+        //   url: '/order/order-form',
+        // },
+        // {
+        //   title: 'Order History',
+        //   key: 'orderHistory',
+        //   url: '/order/order-history',
+        // },
       ],
     },
     {
-      title: 'Blogs & Discussions',
+      title: 'Account Upgrades',
       key: 'blogs',
-      icon: 'fe fe-discussion',
+      icon: 'fe fe-hard-drive',
       children: [
         {
-          title: 'Create a Post',
+          title: 'Professional Features',
           key: 'blogsPost',
           url: '/blog/add-post',
         },
         {
-          title: 'Posts List',
+          title: 'Membership Levels',
           key: 'blogsPostsList',
           url: '/blog/posts-list',
         },
+        // {
+        //   title: 'Create a Post',
+        //   key: 'blogsPost',
+        //   url: '/blog/add-post',
+        // },
+        // {
+        //   title: 'Posts List',
+        //   key: 'blogsPostsList',
+        //   url: '/blog/posts-list',
+        // },
       ],
     },
+    // {
+    //   title: 'Campaign',
+    //   key: 'extraApps',
+    //   icon: 'fe fe-hard-drive',
+    //   children: [
+    //     {
+    //       title: 'Calendar Scheduling',
+    //       key: 'extraAppsGithubExplore',
+    //       url: '/apps/github-explore',
+    //     },
+    //     {
+    //       title: 'Order History',
+    //       key: 'extraAppsGithubDiscuss',
+    //       url: '/apps/github-discuss',
+    //     },
+    //     {
+    //       title: 'Statistics',
+    //       key: 'extraAppsDigitaloceanDroplets',
+    //       url: '/apps/digitalocean-droplets',
+    //     },
+    //   ],
+    // },
     {
-      title: 'Campaign',
-      key: 'extraApps',
-      icon: 'fe fe-hard-drive',
-      children: [
-        {
-          title: 'Calendar Scheduling',
-          key: 'extraAppsGithubExplore',
-          url: '/apps/github-explore',
-        },
-        {
-          title: 'Order History',
-          key: 'extraAppsGithubDiscuss',
-          url: '/apps/github-discuss',
-        },
-        {
-          title: 'Statistics',
-          key: 'extraAppsDigitaloceanDroplets',
-          url: '/apps/digitalocean-droplets',
-        },
-      ],
-    },
-    {
-      title: 'Account Details',
+      title: 'Profile',
       key: 'ecommerce',
       icon: 'fe fe-shopping-cart',
       children: [
         {
-          title: 'My Profile',
+          title: 'Details and Settings',
           key: 'ecommerceDashboard',
           url: '/ecommerce/dashboard',
         },

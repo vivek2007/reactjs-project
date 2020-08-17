@@ -336,16 +336,24 @@ const DashboardBeta = ({ user }) => {
         label: '500',
       },
       1000: {
-        style: { left: '60%', display: 'none' },
+        style: { left: '50%', display: 'none' },
         label: '1000',
       },
       2500: {
-        style: { left: '80%', display: 'none' },
+        style: { left: '60%', display: 'none' },
         label: '2500',
       },
       5000: {
-        style: { left: '100%', display: 'none' },
+        style: { left: '70%', display: 'none' },
         label: '5000',
+      },
+      10000: {
+        style: { left: '80%', display: 'none' },
+        label: '10000',
+      },
+      25000: {
+        style: { left: '100%', display: 'none' },
+        label: '25000',
       },
     }
 
@@ -366,8 +374,8 @@ const DashboardBeta = ({ user }) => {
               <Form.Item name="numberOfClicks" label="Number of Clicks">
                 <Slider
                   marks={marks}
-                  max={5000}
-                  min={200}
+                  max={25000}
+                  min={100}
                   step={null}
                   onAfterChange={e => setAmountToPay(e)}
                 />
@@ -413,7 +421,7 @@ const DashboardBeta = ({ user }) => {
                     />
                   </Form.Item>
                   <Form.Item
-                    style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
+                    style={{ display: 'inline-block', width: 'calc(50% - 9px)', margin: '0 9px' }}
                     name={website.clicksRequired}
                     rules={[{ required: true, message: 'Please input number of Clicks' }]}
                   >
@@ -426,14 +434,14 @@ const DashboardBeta = ({ user }) => {
               ))}
               <Form.Item
                 name="requiredDate"
-                label="Select Date"
+                label="Select Campaign Start Date"
                 rules={[{ required: true, message: 'Please Select Date' }]}
               >
-                <DatePicker className="mb-2" disabledDate={disabledDate} />
+                <DatePicker className="mb-2 ml-2" disabledDate={disabledDate} />
               </Form.Item>
-              <Form.Item label="Payment Details" name="paymentDetails">
+              <Form.Item label="Payment Details" name="paymentDetails" className="inputMerge">
                 <Form.Item
-                  style={{ display: 'inline-block', width: 'calc(58% - 6px)' }}
+                  style={{ display: 'inline-block', width: 'calc(50% - 10px)' }}
                   rules={[{ required: true, message: 'Please input card number' }]}
                   name="paymentDetails_cardNumber"
                 >
@@ -443,7 +451,7 @@ const DashboardBeta = ({ user }) => {
                   </PaymentInputsWrapper>
                 </Form.Item>
                 <Form.Item
-                  style={{ display: 'inline-block', width: 'calc(30% - 6px)' }}
+                  style={{ display: 'inline-block', width: 'calc(25% - 6px)' }}
                   rules={[{ required: true, message: 'Please input expiry' }]}
                   name="paymentDetails_cardExpiry"
                 >
@@ -452,7 +460,7 @@ const DashboardBeta = ({ user }) => {
                   </PaymentInputsWrapper>
                 </Form.Item>
                 <Form.Item
-                  style={{ display: 'inline-block', width: 'calc(17% - 6px)' }}
+                  style={{ display: 'inline-block', width: 'calc(20% - 6px)' }}
                   rules={[{ required: true, message: 'Please input CVC' }]}
                   name="paymentDetails_cardCVV"
                 >
@@ -474,7 +482,7 @@ const DashboardBeta = ({ user }) => {
                 </PaymentInputsWrapper>
               </Form.Item> */}
               <Form.Item name="amount" label="Amount">
-                {`$ ${amountToPay}`}
+                {`$ ${amountToPay}.00`}
               </Form.Item>
               <Button
                 type="primary"
@@ -483,7 +491,7 @@ const DashboardBeta = ({ user }) => {
                 className="text-center w-100"
                 loading={user.loading}
               >
-                <strong>Place Order Now</strong>
+                <strong>SUBMIT ORDER</strong>
               </Button>
             </Form>
           </div>
