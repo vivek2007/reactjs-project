@@ -23,30 +23,20 @@ export default async function getMenuData() {
         },
         {
           title: 'Order History',
-          key: 'dashboardGamma',
-          url: '/apps/github-discuss',
+          key: 'orderHistory',
+          url: '/order/order-history',
         },
         {
           title: 'Statistics and Analytics',
-          key: 'dashboardGamma',
+          key: 'extraAppsDigitaloceanDroplets',
           url: '/apps/digitalocean-droplets',
         },
-        // {
-        //   title: 'Professional Features',
-        //   key: 'dashboard',
-        //   url: '/dashboard/alpha',
-        // },
-        // {
-        //   title: 'Membership Levels',
-        //   key: 'dashboardGamma',
-        //   url: '/dashboard/gamma',
-        // },
       ],
     },
     {
       title: 'Compensation Plan',
       key: 'apps',
-      icon: 'fe fe-database',
+      icon: 'fe fe-dollar-sign',
       children: [
         {
           title: 'Referrals and Earnings',
@@ -57,84 +47,42 @@ export default async function getMenuData() {
     },
     {
       title: 'Latest Posts',
-      key: 'orders',
-      icon: 'fe fe-shopping-cart',
+      key: 'blogs',
+      icon: 'fe fe-rss',
       children: [
         {
           title: 'Featured News',
-          key: 'ordersClicks',
-          url: '/dashboard/alpha',
+          key: 'blogsPostsList',
+          url: '/blog/posts-list',
         },
         {
           title: 'General Information',
-          key: 'orderHistory',
-          url: '/dashboard/alpha',
+          key: 'blogsPost',
+          url: '/blog/add-post',
         },
-        // {
-        //   title: 'Order Clicks',
-        //   key: 'ordersClicks',
-        //   url: '/order/order-form',
-        // },
-        // {
-        //   title: 'Order History',
-        //   key: 'orderHistory',
-        //   url: '/order/order-history',
-        // },
       ],
     },
     {
       title: 'Account Upgrades',
-      key: 'blogs',
+      key: 'account',
       icon: 'fe fe-hard-drive',
       children: [
         {
           title: 'Professional Features',
-          key: 'blogsPost',
-          url: '/blog/add-post',
+          key: 'dashboard',
+          url: '/dashboard/alpha',
         },
         {
           title: 'Membership Levels',
-          key: 'blogsPostsList',
-          url: '/blog/posts-list',
+          key: 'dashboardGamma',
+          url: '/dashboard/gamma',
         },
-        // {
-        //   title: 'Create a Post',
-        //   key: 'blogsPost',
-        //   url: '/blog/add-post',
-        // },
-        // {
-        //   title: 'Posts List',
-        //   key: 'blogsPostsList',
-        //   url: '/blog/posts-list',
-        // },
       ],
     },
-    // {
-    //   title: 'Campaign',
-    //   key: 'extraApps',
-    //   icon: 'fe fe-hard-drive',
-    //   children: [
-    //     {
-    //       title: 'Calendar Scheduling',
-    //       key: 'extraAppsGithubExplore',
-    //       url: '/apps/github-explore',
-    //     },
-    //     {
-    //       title: 'Order History',
-    //       key: 'extraAppsGithubDiscuss',
-    //       url: '/apps/github-discuss',
-    //     },
-    //     {
-    //       title: 'Statistics',
-    //       key: 'extraAppsDigitaloceanDroplets',
-    //       url: '/apps/digitalocean-droplets',
-    //     },
-    //   ],
-    // },
     {
       title: 'Profile',
       key: 'ecommerce',
-      icon: 'fe fe-shopping-cart',
+      icon: 'fe fe-users',
       children: [
         {
           title: 'Details and Settings',
