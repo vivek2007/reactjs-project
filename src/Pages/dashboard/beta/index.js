@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-
+import React, { useState, useEffect, useRef } from 'react'
 import { DownOutlined } from '@ant-design/icons'
 import {
   Calendar,
-  Badge,
+  // Badge,
   Table,
   Dropdown,
   Button,
@@ -19,16 +18,18 @@ import {
 import ChartistGraph from 'react-chartist'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
-
 import moment from 'moment'
-
-// import { css } from 'styled-components';
 import { usePaymentInputs, PaymentInputsWrapper } from 'react-payment-inputs'
 import images from 'react-payment-inputs/images'
+import { isEmpty } from 'lodash'
+import * as qs from 'querystring'
+import axios from 'axios'
+
+// import { css } from 'styled-components';
 
 import {
   // rangeSlider
-  calendarData,
+  // calendarData,
   // weekChartistData,
   monthCartistData,
   taskTableData,
@@ -37,52 +38,7 @@ import {
 
 import style from './style.module.scss'
 
-// Slider Range Settings //
-// const rangeMarks = {
-//   0: '0',
-//   10: '10',
-//   20: '20',
-//   30: '30',
-//   40: '40',
-//   50: '50',
-//   60: '60',
-//   70: '70',
-//   80: '80',
-//   90: '90',
-//   100: '100',
-// }
-
 // Calendar Settings //
-function getListData(value) {
-  const date = value.date()
-  const itemName = `date_${date}`
-  let listData
-  if (calendarData[itemName] !== undefined) {
-    listData = calendarData[itemName]
-  }
-  return listData || []
-}
-
-function disabledDate(current) {
-  // Can not select days before today and today
-  return current < moment().subtract(1, 'day')
-}
-
-function dateCellRender(value) {
-  console.log('value', value)
-
-  const listData = getListData(value)
-  console.log('listData', listData)
-  return (
-    <ul className="events">
-      {listData.map(item => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))}
-    </ul>
-  )
-}
 
 // Week Chartist Settings //
 // const weekChartistOptions = {
@@ -104,11 +60,177 @@ const monthChartistOptions = {
   seriesBarDistance: 10,
 }
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, dispatch, newCampaign = {} }) => ({
   user,
+  dispatch,
+  newCampaign,
 })
 
-const DashboardBeta = ({ user }) => {
+const DashboardBeta = ({ user, dispatch, newCampaign }) => {
+  const payloadData = {
+    userID: user.userId,
+    min: 0,
+    max: 31,
+    sortBy: 'launchDate',
+    month: 8,
+    year: 2020,
+  }
+
+  const prevProps = useRef()
+  console.log('prevProps', prevProps)
+
+  useEffect(() => {
+    // code to run on component mount
+    console.log('USE EFFECT CALLED')
+    if (isEmpty(newCampaign)) {
+      console.log('INSIDE YOUR CONDITION')
+      dispatch({
+        type: 'newCampaign/GET_CALENDER_DATA',
+        payload: payloadData,
+      })
+    }
+  })
+
+  function getListData(value) {
+    const date = value.date()
+
+    const orderArray = newCampaign.newCampaign.orderDetails
+    const def = []
+    orderArray.forEach(element => {
+      const str = element.launchDate
+      const parts = str.slice(0, -1).split('T')
+      const dateComponent = parts[0]
+      const comp = parseInt(dateComponent.slice(8, 10), 10)
+
+      if (comp === date) {
+        console.log('MATCH FOUND')
+        def.push(element)
+      }
+      return null
+    })
+
+    return def || []
+
+    // const itemName = `date_${date}`
+    // let listData
+    // if (calendarData[itemName] !== undefined) {
+    //   console.log("calendarData[itemName]",calendarData[itemName])
+    //   listData = calendarData[itemName]
+    // }
+    // return listData || []
+  }
+
+  function disabledDate(current) {
+    // Can not select days before today and today
+    return current < moment().subtract(1, 'day')
+  }
+
+  function dateCellRender(value) {
+    const listData = getListData(value)
+    // console.log('listData', listData)
+    return (
+      <div className="events">
+        {listData.map(item =>
+          item.websites.map(subitem => (
+            <div key={subitem.launchDate}>
+              * website: <b>{subitem.website} </b>
+              <br />
+              <i>* clicks:</i> <b>{subitem.clicks}</b>
+            </div>
+          )),
+        )}
+      </div>
+    )
+  }
+
+  function getMonthData(value) {
+    const month = value.month() + 1
+
+    const orderArray = newCampaign.newCampaign.orderDetails
+    const def = []
+    orderArray.forEach(element => {
+      const str = element.launchDate
+      const parts = str.slice(0, -1).split('T')
+      const dateComponent = parts[0]
+      const comp = parseInt(dateComponent.slice(5, 7), 10)
+      if (comp === month) {
+        def.push(element)
+      }
+      return null
+    })
+
+    return def || []
+  }
+
+  function monthCellRender(value) {
+    const listData = getMonthData(value)
+
+    return listData ? (
+      <div className="notes-month">
+        {listData.map(item =>
+          item.websites.map(subitem => (
+            <div key={subitem.launchDate}>
+              * website: <b>{subitem.website} </b>
+              <br />
+              <i>* clicks:</i> <b>{subitem.clicks}</b>
+            </div>
+          )),
+        )}
+      </div>
+    ) : null
+  }
+
+  // function handleDateChange(value) {
+  //   console.log('month changed', value.month() + 1)
+  //   console.log('year changed', value.year())
+
+  //   const changedPayloadData = {
+  //     userID: user.userId,
+  //     min: 0,
+  //     max: 100000,
+  //     sortBy: 'launchDate',
+  //     month: value.month() + 1,
+  //     year: value.year(),
+  //   }
+
+  //   dispatch({
+  //     type: 'newCampaign/GET_CALENDER_DATA',
+  //     payload: changedPayloadData,
+  //   })
+  // }
+
+  function handlePannelChange(value, mode) {
+    if (mode === 'month') {
+      const changedPayloadData = {
+        userID: user.userId,
+        min: 0,
+        max: 100000,
+        sortBy: 'launchDate',
+        month: value.month() + 1,
+        year: value.year(),
+      }
+
+      dispatch({
+        type: 'newCampaign/GET_CALENDER_DATA',
+        payload: changedPayloadData,
+      })
+    } else if (mode === 'year') {
+      const changedPayloadData = {
+        userID: user.userId,
+        min: 0,
+        max: 100000,
+        sortBy: 'launchDate',
+        // month: value.month() + 1,
+        year: value.year(),
+      }
+
+      dispatch({
+        type: 'newCampaign/GET_CALENDER_DATA',
+        payload: changedPayloadData,
+      })
+    }
+  }
+
   const [taskTableSelectedRowKeys, setTaskTableSelectedRowKeys] = useState([])
 
   const onSelectChange = keys => {
@@ -122,9 +244,9 @@ const DashboardBeta = ({ user }) => {
 
   const dropdownMenu = (
     <Menu>
-      <Menu.Item key="1">1st menu item</Menu.Item>
-      <Menu.Item key="2">2nd menu item</Menu.Item>
-      <Menu.Item key="3">3rd item</Menu.Item>
+      <Menu.Item key="1">Send a Message</Menu.Item>
+      <Menu.Item key="2">View Profile</Menu.Item>
+      <Menu.Item key="3">Share Earnings Report</Menu.Item>
     </Menu>
   )
 
@@ -189,23 +311,17 @@ const DashboardBeta = ({ user }) => {
     },
   ]
 
-  // const mapStateToProps = ({ user, dispatch, order }) => ({
-  //   dispatch,
-  //   user,
-  //   order,
-  // })
-
-  const OrderForm = ({ dispatch, order = {} }) => {
+  const OrderForm = () => {
     const {
       getCardNumberProps,
       getExpiryDateProps,
       getCVCProps,
       wrapperProps,
       getCardImageProps,
-      // meta,
+      meta,
     } = usePaymentInputs()
 
-    console.log('Props Update:.. ', order.orderSuccess)
+    // console.log('Props Update:.. ', order.orderSuccess)
     // if (order.orderSuccess) {
     //   const [form] = Form.useForm();
     //   form.resetFields();
@@ -216,18 +332,25 @@ const DashboardBeta = ({ user }) => {
     //     },
     //   })
     // }
+
+    const placeOrder = (dataToSend, transID) => {
+      dataToSend.transactionID = transID
+      dispatch({
+        type: 'order/PLACE_ORDER',
+        payload: dataToSend,
+      })
+    }
+
     const onFinish = values => {
       let totalClicks = 0
       const websites = []
       webSites.forEach(website => {
-        console.log('values[website.clicksRequired]: ', values[website.clicksRequired])
         totalClicks = values[website.clicksRequired] + totalClicks
         websites.push({
           website: values[website.name],
           clicks: values[website.clicksRequired],
         })
       })
-      console.log('Total Clicks: ', totalClicks)
       if (totalClicks !== amountToPay) {
         notification.error({
           key: 'clicksIssue',
@@ -237,7 +360,6 @@ const DashboardBeta = ({ user }) => {
           duration: 5,
         })
       } else {
-        console.log('Success:', values)
         notification.close('clicksIssue')
         // notification.success({
         //   message: 'Details Validation Success',
@@ -245,20 +367,21 @@ const DashboardBeta = ({ user }) => {
         //   placement: 'topRight',
         //   duration: 10,
         // })
-        // const dataToSend = {
-        //   userID: user.userId,
-        //   totalClicks,
-        //   launchDate: values.requiredDate.format('YYYY-MM-DDT00:00:00Z'),
-        //   cardNumber: values.paymentDetails_cardNumber,
-        //   cardType: meta.cardType.type,
-        //   expiry: values.paymentDetails_cardExpiry.replace(/ /g, ''),
-        //   cvv: values.paymentDetails_cardCVV,
-        //   websites,
-        // }
+        const dataToSend = {
+          userID: user.userId,
+          totalClicks,
+          launchDate: values.requiredDate.format('YYYY-MM-DDT00:00:00Z'),
+          cardNumber: values.paymentDetails_cardNumber,
+          cardType: meta.cardType.type,
+          expiry: values.paymentDetails_cardExpiry.replace(/ /g, ''),
+          cvv: values.paymentDetails_cardCVV,
+          websites,
+          amount: totalClicks,
+        }
 
         const newDataToSend = {
-          name: 'test',
-          email: 'test@gmail.com',
+          name: user.name,
+          email: user.email,
           amount: totalClicks,
           card_number: values.paymentDetails_cardNumber.replace(/ /g, ''),
           card_cvc: parseInt(values.paymentDetails_cardCVV, 10),
@@ -267,18 +390,57 @@ const DashboardBeta = ({ user }) => {
             parseInt(values.paymentDetails_cardExpiry.split('/', 2)[1].trim(), 10) + 2000,
           subscribe: '',
         }
-        console.log('dataToSend: ', newDataToSend)
         dispatch({
-          type: 'order/PLACE_ORDER',
-          payload: newDataToSend,
+          type: 'user/SET_STATE',
+          payload: {
+            loading: true,
+          },
         })
+        axios({
+          method: 'post',
+          url: `https://climatechangepartnership.com/secure/payment.php`,
+          data: qs.stringify(newDataToSend),
+        })
+          .then(response => {
+            dispatch({
+              type: 'user/SET_STATE',
+              payload: {
+                loading: false,
+              },
+            })
+            if (response.data !== '0') {
+              placeOrder(dataToSend, response.data)
+            } else {
+              notification.error({
+                key: 'payment_filed',
+                message: 'Payment Failed',
+                description: 'Payment Failed, Order cannot be proceed',
+                placement: 'topLeft',
+                duration: 5,
+              })
+            }
+          })
+          .catch(error => {
+            dispatch({
+              type: 'user/SET_STATE',
+              payload: {
+                loading: false,
+              },
+            })
+            console.log('Error Catched: ', error)
+            notification.error({
+              key: 'payment_filed',
+              message: 'Payment Failed',
+              description: 'Payment Failed, Order cannot be proceed',
+              placement: 'topLeft',
+              duration: 5,
+            })
+          })
       }
     }
 
     const onFinishFailed = errorInfo => {
       console.log('Failed:', errorInfo)
-      console.log('formValues: ', formValues)
-      setFormValues({})
     }
     const [webSites, setWebSites] = useState([
       {
@@ -289,12 +451,6 @@ const DashboardBeta = ({ user }) => {
     ])
 
     const [amountToPay, setAmountToPay] = useState(100)
-
-    const [formValues, setFormValues] = useState({
-      totalClicks: 100,
-      launchDate: new Date(),
-      websites: [],
-    })
 
     const addOrRemoveWebSites = (addWebsite, index) => {
       const freshListOfWebSites = [...webSites]
@@ -359,7 +515,7 @@ const DashboardBeta = ({ user }) => {
 
     return (
       <div className="card-body">
-        <Helmet title="Advanced / Form Examples" />
+        <Helmet title="Dashboard: New Campaign" />
         <div className="">
           <div className="">
             <h5 className="mb-4">
@@ -437,7 +593,7 @@ const DashboardBeta = ({ user }) => {
                 label="Select Campaign Start Date"
                 rules={[{ required: true, message: 'Please Select Date' }]}
               >
-                <DatePicker className="mb-2 ml-2" disabledDate={disabledDate} />
+                <DatePicker className="ml-2" disabledDate={disabledDate} />
               </Form.Item>
               <Form.Item label="Payment Details" name="paymentDetails" className="inputMerge">
                 <Form.Item
@@ -447,7 +603,11 @@ const DashboardBeta = ({ user }) => {
                 >
                   <PaymentInputsWrapper {...wrapperProps}>
                     <svg {...getCardImageProps({ images })} />
-                    <input {...getCardNumberProps()} name="creditCardNumber" />
+                    <input
+                      {...getCardNumberProps()}
+                      name="creditCardNumber"
+                      style={{ width: '6em' }}
+                    />
                   </PaymentInputsWrapper>
                 </Form.Item>
                 <Form.Item
@@ -547,13 +707,15 @@ const DashboardBeta = ({ user }) => {
                   </div>
 
                   <p className="pt-3 mb-0">
-                    <div className="cui__utils__heading mb-0">
+                    {/* <div className="cui__utils__heading mb-0">
                       <strong>DISPLAY POST TITLE HERE</strong>
-                    </div>
+                    </div> */}
                     <div className="text-muted">
                       {' '}
-                      This text is an excerpt from the first 500 characters of the most recently
-                      published post.
+                      Clicks delivers the best traffic across the internet marketers looking to make
+                      money online and enterprise companies with a sought after compensation plan
+                      using a downline infrastructure. Earn up to 100% commissions across all
+                      revenue generated through our systems from the members you refer.
                     </div>
                   </p>
                 </div>
@@ -582,9 +744,11 @@ const DashboardBeta = ({ user }) => {
           <div className="card">
             <div className="card-header">
               <div className="cui__utils__heading mb-0">
-                <strong>Task Table</strong>
+                <strong>LATEST REFERRALS</strong>
               </div>
-              <div className="text-muted">Block with important Task Table information</div>
+              <div className="text-muted">
+                Manage teams with built-in communication tools and resources.
+              </div>
             </div>
             <div className="card-body">
               <div className="row">
@@ -775,7 +939,7 @@ const DashboardBeta = ({ user }) => {
                       </span>
                       <div className={style.desc}>
                         <span className={style.title}>Order Information</span>
-                        <p className={style.p}>Get paid to 100% on user referrals for life.</p>
+                        <p className={style.p}>Get paid to 100% on user referrals for life time.</p>
                       </div>
                       <div className={`${style.line} bg-primary`} />
                     </div>
@@ -824,7 +988,12 @@ const DashboardBeta = ({ user }) => {
               </div>
             </div>
             <div className="card-body">
-              <Calendar dateCellRender={dateCellRender} />
+              <Calendar
+                dateCellRender={dateCellRender}
+                monthCellRender={monthCellRender}
+                // onChange={handleDateChange}
+                onPanelChange={handlePannelChange}
+              />
             </div>
           </div>
         </div>

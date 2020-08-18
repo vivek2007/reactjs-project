@@ -31,7 +31,7 @@ const MenuLeft = ({
   isMenuShadow,
   leftMenuWidth,
   menuColor,
-  logo,
+  // logo,
   role,
 }) => {
   const [selectedKeys, setSelectedKeys] = useState(store.get('app.menu.selectedKeys') || [])
@@ -192,12 +192,11 @@ const MenuLeft = ({
           <div className={style.logo}>
             <img
               src="resources/images/site_logo.png"
-              className="mr-2"
-              alt="Clean UI"
-              style={{ width: '150px', height: '50px' }}
+              alt="Clicks"
+              className={`mr-2 ${isMenuCollapsed ? 'menuCollapseTrue' : 'menuCollapseFalse'}`}
             />
             {/* <div className={style.name}>{logo}</div> */}
-            {logo === 'Clicks' && <div className={style.descr}>React</div>}
+            {/* {logo === 'Clicks' && <div className={style.descr}>React</div>} */}
           </div>
         </div>
         <PerfectScrollbar>

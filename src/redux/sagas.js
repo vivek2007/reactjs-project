@@ -5,7 +5,16 @@ import menu from './menu/sagas'
 import settings from './settings/sagas'
 import membershipLevel from './membership-levels/sagas'
 import professionalFeatures from './professional-features/sagas'
+import newCampaign from './new-campaign/sagas'
 
 export default function* rootSaga() {
-  yield all([user(), menu(), settings(), order(), membershipLevel(), professionalFeatures()])
+  yield all([
+    user(),
+    menu(),
+    settings(),
+    order(),
+    membershipLevel(),
+    professionalFeatures(),
+    newCampaign(),
+  ])
 }

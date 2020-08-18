@@ -7,6 +7,7 @@ import blog from './blog/reducers'
 import settings from './settings/reducers'
 import membershipLevel from './membership-levels/reducers'
 import professionalFeatures from './professional-features/reducers'
+import newCampaign from './new-campaign/reducers'
 
 export default history =>
   combineReducers({
@@ -18,4 +19,5 @@ export default history =>
     settings,
     membershipLevel,
     professionalFeatures,
+    newCampaign,
   })

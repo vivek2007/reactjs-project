@@ -66,6 +66,7 @@ const mapStateToProps = ({ dispatch, professionalFeatures = {} }) => {
 
 const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
   const prevProps = useRef()
+  console.log('prevProps', prevProps)
   useEffect(() => {
     // code to run on component mount
     if (isEmpty(professionalFeatures) || prevProps.professionalFeatures !== professionalFeatures) {
@@ -139,7 +140,7 @@ const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
 
   return (
     <div>
-      <Helmet title="Dashboard: Analytics" />
+      <Helmet title="Account Upgrades: Professional Features" />
       <div className="row">
         {professionalFeatures.professionalData.professionalFeatures.map(value => {
           return (
@@ -153,13 +154,14 @@ const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
                 onKeyDown={handleKeyDown}
               >
                 <div
-                  className="text-light font-size-60 text-center pt-20"
+                  className="text-light text-center"
                   style={{
                     position: 'absolute',
-                    marginLeft: '5vw',
-                    marginTop: '15%',
+                    marginLeft: '2vw',
+                    marginTop: '25%',
                     lineHeight: '1',
                     textAlign: 'center',
+                    fontSize: '50px',
                   }}
                 >
                   <b>
@@ -281,11 +283,11 @@ const DashboardAlpha = ({ dispatch, professionalFeatures }) => {
           <div className="card">
             <General6v1 />
           </div>
-          <div className="text-center pb-5">
+          {/* <div className="text-center pb-5">
             <Button type="primary" className="width-200" loading>
               Load More...
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <Modal

@@ -119,7 +119,7 @@ const DashboardGamma = ({ dispatch, membership }) => {
 
   return (
     <div>
-      <Helmet title="Dashboard Gamma" />
+      <Helmet title="Account Upgrades: Membership Levels" />
 
       <div className="kit__utils__heading">
         <h5>Membership Levels</h5>
