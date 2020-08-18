@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useRef } from 'react'
 import { DownOutlined } from '@ant-design/icons'
 import {
@@ -78,22 +79,22 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
 
   const prevProps = useRef()
   console.log('prevProps', prevProps)
-
-  useEffect(() => {
-    // code to run on component mount
-    console.log('USE EFFECT CALLED')
-    if (isEmpty(newCampaign)) {
-      console.log('INSIDE YOUR CONDITION')
-      dispatch({
-        type: 'newCampaign/GET_CALENDER_DATA',
-        payload: payloadData,
-      })
-    }
-  })
+  console.log('isEmpty(newCampaign)', isEmpty(newCampaign.newCampaign))
+  // useEffect(async () => {
+  //   // code to run on component mount
+  //   console.log('USE EFFECT CALLED')
+  //   // if (isEmpty(newCampaign.newCampaign)) {
+  //     console.log('INSIDE YOUR CONDITION')
+  //     await dispatch({
+  //       type: 'newCampaign/GET_CALENDER_DATA',
+  //       payload: payloadData,
+  //     })
+  //   // }
+  // })
 
   function getListData(value) {
     const date = value.date()
-
+    console.log(newCampaign.newCampaign.orderDetails)
     const orderArray = newCampaign.newCampaign.orderDetails
     const def = []
     orderArray.forEach(element => {
@@ -989,10 +990,10 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
             </div>
             <div className="card-body">
               <Calendar
-                dateCellRender={dateCellRender}
-                monthCellRender={monthCellRender}
-                // onChange={handleDateChange}
-                onPanelChange={handlePannelChange}
+              // dateCellRender={dateCellRender}
+              // monthCellRender={monthCellRender}
+              // onChange={handleDateChange}
+              // onPanelChange={handlePannelChange}
               />
             </div>
           </div>
