@@ -96,7 +96,7 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
 
   function getListData(value) {
     const date = value.date()
-
+    console.log(newCampaign.newCampaign.orderDetails)
     const orderArray = newCampaign.newCampaign.orderDetails
     const def = []
     orderArray.forEach(element => {
@@ -1000,7 +1000,7 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
                   onPanelChange={handlePannelChange}
                 />
               ) : (
-                <p>Loading...</p>
+                <Calendar />
               )}
             </div>
           </div>
