@@ -46,7 +46,7 @@ class EcommerceOrders extends React.Component {
     }
     axios({
       method: 'post',
-      url: `http://18.237.7.208:3000/v1//user/get-orders`,
+      url: `http://clickswealthy.com:3000/v1//user/get-orders`,
       data,
     })
       .then(response => {

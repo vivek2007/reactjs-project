@@ -14,7 +14,7 @@ export async function membershipData(userid) {
   const userDData = { userID: userid }
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/get-membership-levels`,
+    url: `http://clickswealthy.com:3000/v1/user/get-membership-levels`,
     data: qs.stringify(userDData),
   })
     .then(response => {

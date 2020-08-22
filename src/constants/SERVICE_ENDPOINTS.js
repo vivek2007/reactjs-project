@@ -1,4 +1,4 @@
-const ENDPOINT_SOURCE = 'http://18.237.7.208:3000'
+const ENDPOINT_SOURCE = 'http://clickswealthy.com:3000'
 const SERVICE_VERSION = 'v1'
 const END_POINT_URL = `${ENDPOINT_SOURCE}/${SERVICE_VERSION}`
 

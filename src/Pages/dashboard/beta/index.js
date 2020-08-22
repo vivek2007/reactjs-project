@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useRef } from 'react'
 import { DownOutlined } from '@ant-design/icons'
 import {
@@ -67,22 +68,24 @@ const mapStateToProps = ({ user, dispatch, newCampaign = {} }) => ({
 })
 
 const DashboardBeta = ({ user, dispatch, newCampaign }) => {
+  console.log('thisMoment', moment().month())
   const payloadData = {
     userID: user.userId,
     min: 0,
-    max: 31,
+    max: 99999,
     sortBy: 'launchDate',
-    month: 8,
-    year: 2020,
+    month: moment().month(),
+    year: moment().year(),
   }
 
   const prevProps = useRef()
   console.log('prevProps', prevProps)
 
+  console.log('newCampaign Data', newCampaign)
   useEffect(() => {
     // code to run on component mount
     console.log('USE EFFECT CALLED')
-    if (isEmpty(newCampaign)) {
+    if (isEmpty(newCampaign.newCampaign)) {
       console.log('INSIDE YOUR CONDITION')
       dispatch({
         type: 'newCampaign/GET_CALENDER_DATA',
@@ -132,7 +135,7 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
       <div className="events">
         {listData.map(item =>
           item.websites.map(subitem => (
-            <div key={subitem.launchDate}>
+            <div key={subitem.website + subitem.clicks}>
               * website: <b>{subitem.website} </b>
               <br />
               <i>* clicks:</i> <b>{subitem.clicks}</b>
@@ -187,7 +190,7 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
   //   const changedPayloadData = {
   //     userID: user.userId,
   //     min: 0,
-  //     max: 100000,
+  //     max: 99999,
   //     sortBy: 'launchDate',
   //     month: value.month() + 1,
   //     year: value.year(),
@@ -204,7 +207,7 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
       const changedPayloadData = {
         userID: user.userId,
         min: 0,
-        max: 100000,
+        max: 99999,
         sortBy: 'launchDate',
         month: value.month() + 1,
         year: value.year(),
@@ -218,7 +221,7 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
       const changedPayloadData = {
         userID: user.userId,
         min: 0,
-        max: 100000,
+        max: 99999,
         sortBy: 'launchDate',
         // month: value.month() + 1,
         year: value.year(),
@@ -540,10 +543,12 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
                 <Form.Item
                   label={webSites.length === 1 ? 'Website' : 'Website and Clicks'}
                   style={{ marginBottom: 0 }}
+                  key={website.clicks + website.name}
                 >
                   <Form.Item
                     style={{ display: 'inline-block', width: 'calc(50% - 10px)' }}
                     name={website.name}
+                    key={website.clicks + website.name}
                     rules={[
                       { required: true, message: 'Please input Website URL' },
                       {
@@ -706,18 +711,17 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
                     </a>
                   </div>
 
-                  <p className="pt-3 mb-0">
+                  <div className="pt-3 mb-0">
                     {/* <div className="cui__utils__heading mb-0">
                       <strong>DISPLAY POST TITLE HERE</strong>
                     </div> */}
-                    <div className="text-muted">
-                      {' '}
+                    <p className="text-muted">
                       Clicks delivers the best traffic across the internet marketers looking to make
                       money online and enterprise companies with a sought after compensation plan
                       using a downline infrastructure. Earn up to 100% commissions across all
                       revenue generated through our systems from the members you refer.
-                    </div>
-                  </p>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -988,12 +992,16 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
               </div>
             </div>
             <div className="card-body">
-              <Calendar
-                dateCellRender={dateCellRender}
-                monthCellRender={monthCellRender}
-                // onChange={handleDateChange}
-                onPanelChange={handlePannelChange}
-              />
+              {!isEmpty(newCampaign.newCampaign) ? (
+                <Calendar
+                  dateCellRender={dateCellRender}
+                  monthCellRender={monthCellRender}
+                  // onChange={handleDateChange}
+                  onPanelChange={handlePannelChange}
+                />
+              ) : (
+                <p>Loading...</p>
+              )}
             </div>
           </div>
         </div>

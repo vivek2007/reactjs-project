@@ -14,7 +14,7 @@ export async function professionalFeaturesData(userid) {
   const userDData = { userID: userid }
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/get-professional-features`,
+    url: `http://clickswealthy.com:3000/v1/user/get-professional-features`,
     data: qs.stringify(userDData),
   })
     .then(response => {
@@ -40,7 +40,7 @@ export async function addProfessionalFeaturesToCart(userid, feature) {
   console.log('userDData', userDData)
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/add-to-cart`,
+    url: `http://clickswealthy.com:3000/v1/user/add-to-cart`,
     data: qs.stringify(userDData),
   })
     .then(response => {
@@ -66,7 +66,7 @@ export async function removeProfessionalFeaturesFromCart(userid, feature) {
   console.log('userDData', userDData)
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/remove-from-cart`,
+    url: `http://clickswealthy.com:3000/v1/user/remove-from-cart`,
     data: qs.stringify(userDData),
   })
     .then(response => {
@@ -96,7 +96,7 @@ export async function order(data) {
   console.log('data of profeesional features order api: ', data)
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/order-professional-feature`,
+    url: `http://clickswealthy.com:3000/v1/user/order-professional-feature`,
     // data: qs.stringify(data),
     data,
   })

@@ -10,7 +10,7 @@ export async function login(email, password) {
   }
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/auth/login`,
+    url: `http://clickswealthy.com:3000/v1/auth/login`,
     data,
   })
     .then(response => {
@@ -33,7 +33,7 @@ export async function login(email, password) {
 export async function register(data) {
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/auth/signup`,
+    url: `http://clickswealthy.com:3000/v1/auth/signup`,
     data,
   })
     .then(response => {
@@ -56,7 +56,7 @@ export async function register(data) {
 export async function forgotPassword(data) {
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/auth/forgot-password`,
+    url: `http://clickswealthy.com:3000/v1/auth/forgot-password`,
     data,
   })
     .then(response => {
@@ -79,7 +79,7 @@ export async function forgotPassword(data) {
 export async function changePassword(data) {
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/auth/change-password`,
+    url: `http://clickswealthy.com:3000/v1/auth/change-password`,
     data,
   })
     .then(response => {
@@ -101,7 +101,7 @@ export async function changePassword(data) {
 
 export async function verifyEmail(data) {
   return axios
-    .get(`http://18.237.7.208:3000/v1/auth/verify/${data.id}`)
+    .get(`http://clickswealthy.com:3000/v1/auth/verify/${data.id}`)
     .then(response => {
       return { status: response.data === 'Invalid credentials' ? 0 : 1, message: response.data }
     })

@@ -14,7 +14,7 @@ export async function getOrder(data) {
   console.log('data: ', data)
   return axios({
     method: 'post',
-    url: `http://18.237.7.208:3000/v1/user/get-orders`,
+    url: `http://clickswealthy.com:3000/v1/user/get-orders`,
     // data: qs.stringify(data),
     data,
   })
