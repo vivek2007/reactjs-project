@@ -68,35 +68,31 @@ const mapStateToProps = ({ user, dispatch, newCampaign = {} }) => ({
 })
 
 const DashboardBeta = ({ user, dispatch, newCampaign }) => {
-  console.log('thisMoment', moment().month())
   const payloadData = {
     userID: user.userId,
     min: 0,
     max: 99999,
     sortBy: 'launchDate',
-    month: moment().month(),
+    month: moment().month() + 1,
     year: moment().year(),
   }
 
   const prevProps = useRef()
-  console.log('prevProps', prevProps)
 
   console.log('newCampaign Data', newCampaign)
   useEffect(() => {
     // code to run on component mount
     console.log('USE EFFECT CALLED')
-    if (isEmpty(newCampaign.newCampaign)) {
-      console.log('INSIDE YOUR CONDITION')
-      dispatch({
-        type: 'newCampaign/GET_CALENDER_DATA',
-        payload: payloadData,
-      })
-    }
-  })
+    // if (isEmpty(newCampaign.newCampaign)) {
+    dispatch({
+      type: 'newCampaign/GET_CALENDER_DATA',
+      payload: payloadData,
+    })
+    // }
+  }, [])
 
   function getListData(value) {
     const date = value.date()
-    console.log(newCampaign.newCampaign.orderDetails)
     const orderArray = newCampaign.newCampaign.orderDetails
     const def = []
     orderArray.forEach(element => {
@@ -106,7 +102,6 @@ const DashboardBeta = ({ user, dispatch, newCampaign }) => {
       const comp = parseInt(dateComponent.slice(8, 10), 10)
 
       if (comp === date) {
-        console.log('MATCH FOUND')
         def.push(element)
       }
       return null
